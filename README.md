@@ -22,7 +22,7 @@ Team:
 - Module reference
 - Development notes
 - Troubleshooting
-- Contributing & license
+- License & Academic Use
 
 ## Overview
 
