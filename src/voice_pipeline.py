@@ -26,8 +26,6 @@ class VoicePipeline:
     def __init__(self):
         self.recognizer = sr.Recognizer()
         self.microphone = sr.Microphone()
-        self.tts_engine = pyttsx3.init()
-        self.tts_engine.setProperty("rate", 175)
 
         # Calibrate for ambient noise once at startup
         with self.microphone as source:
@@ -54,10 +52,18 @@ class VoicePipeline:
         return text
 
     def speak(self, text: str):
-        """Synthesize and play spoken confirmation."""
+        """
+        Synthesize and play spoken confirmation.
+        Re-initializes the TTS engine on every call - pyttsx3's SAPI5 backend
+        on Windows unreliably stops producing audio after the first
+        runAndWait() if the engine instance is reused across multiple calls.
+        """
         logger.info("Speaking: %s", text)
-        self.tts_engine.say(text)
-        self.tts_engine.runAndWait()
+        engine = pyttsx3.init()
+        engine.setProperty("rate", 175)
+        engine.say(text)
+        engine.runAndWait()
+        engine.stop()
 
 
 if __name__ == "__main__":
