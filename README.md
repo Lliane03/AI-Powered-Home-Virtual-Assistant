@@ -229,14 +229,6 @@ Responses that don't match this schema are rejected by `pydantic` validation and
 - Poor or inconsistent JSON from the LLM (e.g. mismatched action/target pairs):
   - Improve the prompt template in [src/ai_engine.py](src/ai_engine.py) to be more prescriptive, or add stricter `pydantic` validation rejecting nonsensical action/target combinations.
 
-## Contributing
-
-If you'd like to contribute:
-
-1. Fork the repository and create a branch for your change.
-2. Keep edits focused and small; update or add unit tests where applicable.
-3. Open a pull request describing the change and rationale.
-
 ## License & Academic Use
 
 This repository is an academic prototype for student work; it is not intended for commercial use. Use it as a learning artifact and adapt the code with attribution if reusing substantial parts.
