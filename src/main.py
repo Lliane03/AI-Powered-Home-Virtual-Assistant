@@ -2,6 +2,11 @@
 main.py
 Entry point. Launches the GUI and runs the voice interaction loop on a
 background thread so Tkinter's mainloop stays responsive.
+
+Wires up:
+- A threading.Event used to pause/resume the mic from the GUI's button.
+- Listening-indicator updates so the dashboard shows live pipeline state.
+- Command history entries pushed to the GUI after each successful command.
 """
 
 import logging
@@ -33,15 +38,23 @@ logging.basicConfig(
 logger = logging.getLogger("assistant")
 
 
-def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline):
+def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: threading.Event):
     """
     Runs on a background thread: listen -> parse -> apply to GUI -> speak.
     Uses root.after(...) to safely push GUI updates back onto the main thread.
+    pause_event.is_set() == True means "paused" - the loop idles without
+    touching the microphone until it's cleared again.
     """
     simulator.root.after(0, simulator.set_status, "Ready. Say a command...")
 
     while True:
+        if pause_event.is_set():
+            simulator.root.after(0, simulator.set_listening_active, False)
+            time.sleep(0.2)
+            continue
+
         try:
+            simulator.root.after(0, simulator.set_listening_active, True)
             start = time.time()
             transcribed = pipeline.listen()
             simulator.root.after(0, simulator.set_status, f'Heard: "{transcribed}"')
@@ -53,6 +66,7 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline):
             # Push state + GUI updates onto the main thread
             simulator.root.after(0, simulator.apply_actions, result.actions)
             simulator.root.after(0, simulator.set_status, result.response_text)
+            simulator.root.after(0, simulator.add_history_entry, transcribed, result.response_text)
 
             pipeline.speak(result.response_text)
 
@@ -62,17 +76,29 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline):
             logger.error("Voice loop error: %s", exc)
             simulator.root.after(0, simulator.set_status, "Sorry, I didn't catch that. Try again.")
             continue
+        finally:
+            simulator.root.after(0, simulator.set_listening_active, False)
 
 
 def main():
     logger.info("=== Assistant session started: %s ===", datetime.now().isoformat())
 
     root = tk.Tk()
-    simulator = HomeSimulator(root)
+    pause_event = threading.Event()
+
+    def handle_pause_toggle(is_paused: bool):
+        if is_paused:
+            pause_event.set()
+            logger.info("Voice loop paused by user.")
+        else:
+            pause_event.clear()
+            logger.info("Voice loop resumed by user.")
+
+    simulator = HomeSimulator(root, on_toggle_pause=handle_pause_toggle)
 
     pipeline = VoicePipeline()
 
-    worker = threading.Thread(target=voice_loop, args=(simulator, pipeline), daemon=True)
+    worker = threading.Thread(target=voice_loop, args=(simulator, pipeline, pause_event), daemon=True)
     worker.start()
 
     root.mainloop()
