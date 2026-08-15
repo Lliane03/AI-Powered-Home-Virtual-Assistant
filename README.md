@@ -54,13 +54,30 @@ Important responsibilities by layer:
 
 ## Project layout
 
+Repository structure (top-level):
+
+```text
+AI-Powered-Home-Virtual-Assistant/
+├─ README.md
+├─ requirements.txt
+├─ logs/
+│  └─ assistant_execution.log
+└─ src/
+  ├─ main.py
+  ├─ voice_pipeline.py
+  ├─ ai_engine.py
+  └─ home_simulator.py
+```
+
+Mapping of files:
+
+- [README.md](README.md) — Project documentation and usage notes.
+- [requirements.txt](requirements.txt) — Python dependencies.
+- [logs/assistant_execution.log](logs/assistant_execution.log) — Runtime log (gitignored).
 - [src/main.py](src/main.py) — Application entry point and orchestration.
 - [src/voice_pipeline.py](src/voice_pipeline.py) — STT/TTS helpers and audio I/O.
 - [src/ai_engine.py](src/ai_engine.py) — LLM communication and intent → JSON conversion.
 - [src/home_simulator.py](src/home_simulator.py) — State machine and GUI implementation.
-- `requirements.txt` — Python dependencies.
-- `docs/Prelim_Project_Report.pdf` — Project write-up (if present).
-- `logs/assistant_execution.log` — runtime log (gitignored).
 
 ## Requirements
 
