@@ -1,0 +1,5 @@
+ollama
+SpeechRecognition
+PyAudio
+pyttsx3
+pydantic
