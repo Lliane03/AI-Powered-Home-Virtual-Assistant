@@ -12,7 +12,7 @@ import logging
 from typing import List, Literal, Optional
 
 import ollama
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, ValidationError, model_validator
 
 logger = logging.getLogger("assistant")
 
@@ -64,6 +64,44 @@ class DeviceAction(BaseModel):
     ]
     value: Optional[float] = None  # used for set_temperature / increase_temp / decrease_temp
 
+    # ------------------------------------------------------------------
+    # pydantic's Literal fields only validate each field in isolation -
+    # "turn_on" is a valid action, "front_door_lock" is a valid target,
+    # so {"action": "turn_on", "target": "front_door_lock"} passes even
+    # though it's a nonsensical *pairing*. Qwen reaches for turn_on/
+    # turn_off on the door fairly often (it's the most common verb pair
+    # in the prompt), which silently re-locks the door instead of
+    # unlocking it. This validator catches and fixes/rejects the
+    # combinations we've actually observed.
+    # ------------------------------------------------------------------
+    @model_validator(mode="after")
+    def _validate_action_target_pairing(self):
+        # Temperature-style actions only make sense on the thermostat.
+        if self.action in ("set_temperature", "increase_temp", "decrease_temp") \
+                and self.target != "thermostat":
+            raise ValueError(
+                f"'{self.action}' is not valid for target '{self.target}' "
+                "(temperature actions only apply to 'thermostat')"
+            )
+
+        # The door is locked/unlocked, not turned on/off. Normalize
+        # rather than reject, since "turn on the front door" almost
+        # always means "engage the lock" in casual speech.
+        if self.target == "front_door_lock":
+            if self.action == "turn_on":
+                self.action = "lock"
+            elif self.action == "turn_off":
+                self.action = "unlock"
+
+        # Lock/unlock only make sense on the door.
+        if self.action in ("lock", "unlock") and self.target != "front_door_lock":
+            raise ValueError(
+                f"'{self.action}' is not valid for target '{self.target}' "
+                "(lock/unlock only apply to 'front_door_lock')"
+            )
+
+        return self
+
 
 class AssistantResponse(BaseModel):
     actions: List[DeviceAction]
@@ -87,6 +125,10 @@ Rules:
 - Output ONLY valid JSON. No markdown, no code fences, no explanation.
 - A single command can map to multiple actions (e.g. "turn off the kitchen lights and set the thermostat to 22").
 - "value" is required for set_temperature (target temp), increase_temp / decrease_temp (degrees to change), and null for everything else.
+- "set_temperature", "increase_temp", and "decrease_temp" are ONLY valid with target "thermostat". Never use them on a light or the TV.
+- "lock" and "unlock" are ONLY valid with target "front_door_lock". The door is always locked/unlocked, never turned on/off:
+  "lock the door" -> {{"action": "lock", "target": "front_door_lock", "value": null}}
+  "unlock the front door" -> {{"action": "unlock", "target": "front_door_lock", "value": null}}
 - Interpret vague/ambiguous phrasing sensibly, e.g. "it's getting dark" -> turn_on a light; "I'm freezing" -> increase_temp.
 - If the command mentions no valid device/action, return {{"actions": [], "response_text": "Sorry, I didn't catch a command I can act on."}}
 """
@@ -143,6 +185,8 @@ if __name__ == "__main__":
         "Set the living room thermostat to 22 degrees and turn off the kitchen lights",
         "It's getting dark in here and I'm freezing",
         "Lock the front door",
+        "Unlock the front door",
+        "Turn on the front door",  # regression check: should normalize to lock, not stay turn_on
     ]
     for cmd in test_commands:
         print("\n>>>", cmd)
