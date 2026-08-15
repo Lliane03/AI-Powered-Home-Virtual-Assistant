@@ -4,7 +4,8 @@ A 100% offline, privacy-first smart home hub prototype built for Apex Home Autom
 
 Built as a Prelim Mini-Project (Pair Programming) for **BSCS 3112 (9420-AY126) Artificial Intelligence**.
 
-**Team:** 
+**Team Members:** 
+
 De Dios, Louise Jeanne T.
 
 Mangubat, Angel Julliane I.
