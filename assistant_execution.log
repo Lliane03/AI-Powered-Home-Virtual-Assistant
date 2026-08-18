@@ -1,0 +1,1711 @@
+2026-08-15 23:16:54,847 [INFO] === Assistant session started: 2026-08-15T23:16:54.847387 ===
+2026-08-15 23:16:56,184 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:16:57,529 [INFO] Listening...
+2026-08-15 23:17:00,030 [INFO] Transcribing...
+2026-08-15 23:17:00,728 [ERROR] Voice loop error: 
+2026-08-15 23:17:00,897 [INFO] Listening...
+2026-08-15 23:17:03,275 [INFO] Transcribing...
+2026-08-15 23:17:04,003 [ERROR] Voice loop error: 
+2026-08-15 23:17:04,179 [INFO] Listening...
+2026-08-15 23:17:05,486 [INFO] Voice loop paused by user.
+2026-08-15 23:17:06,925 [INFO] Transcribing...
+2026-08-15 23:17:07,584 [INFO] Voice loop resumed by user.
+2026-08-15 23:17:07,653 [ERROR] Voice loop error: 
+2026-08-15 23:17:07,813 [INFO] Listening...
+2026-08-15 23:17:09,680 [INFO] Transcribing...
+2026-08-15 23:17:10,550 [INFO] Transcribed text: play
+2026-08-15 23:17:10,551 [INFO] Sending to Qwen: play
+2026-08-15 23:17:13,403 [INFO] Voice loop paused by user.
+2026-08-15 23:17:18,222 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:17:18,223 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "living_room_light"
+    }
+  ],
+  "response_text": "The living room light is on."
+}
+2026-08-15 23:17:18,223 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room light is on.'}
+2026-08-15 23:17:18,223 [INFO] End-to-end latency: 10.57s
+2026-08-15 23:17:18,223 [INFO] State updated: living_room_light -> True
+2026-08-15 23:17:18,224 [INFO] Speaking: The living room light is on.
+2026-08-15 23:17:18,273 [INFO] Voice loop resumed by user.
+2026-08-15 23:17:18,296 [INFO] Could not import comtypes.gen, trying to create it.
+2026-08-15 23:17:18,298 [INFO] Created comtypes.gen directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:17:18,298 [INFO] Writing __init__.py file: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen\__init__.py'
+2026-08-15 23:17:18,316 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:17:18,333 [INFO] Could not import comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4: No module named 'comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4'
+2026-08-15 23:17:18,337 [INFO] # Generating comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4
+2026-08-15 23:17:18,411 [INFO] # Generating comtypes.gen.SpeechLib
+2026-08-15 23:17:18,419 [INFO] Could not import comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0: No module named 'comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0'
+2026-08-15 23:17:18,419 [INFO] # Generating comtypes.gen._00020430_0000_0000_C000_000000000046_0_2_0
+2026-08-15 23:17:18,426 [INFO] # Generating comtypes.gen.stdole
+2026-08-15 23:17:21,446 [INFO] Listening...
+2026-08-15 23:17:24,013 [INFO] Transcribing...
+2026-08-15 23:17:24,776 [INFO] Transcribed text: open kitchen
+2026-08-15 23:17:24,776 [INFO] Sending to Qwen: open kitchen
+2026-08-15 23:17:26,814 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:17:26,814 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "kitchen_light"
+    }
+  ],
+  "response_text": "The kitchen lights are now turned on."
+}
+2026-08-15 23:17:26,815 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}], 'response_text': 'The kitchen lights are now turned on.'}
+2026-08-15 23:17:26,815 [INFO] End-to-end latency: 5.78s
+2026-08-15 23:17:26,815 [INFO] State updated: kitchen_light -> True
+2026-08-15 23:17:26,818 [INFO] Speaking: The kitchen lights are now turned on.
+2026-08-15 23:17:29,743 [INFO] Listening...
+2026-08-15 23:17:34,399 [INFO] Transcribing...
+2026-08-15 23:17:35,486 [INFO] Transcribed text: change climate to 25
+2026-08-15 23:17:35,487 [INFO] Sending to Qwen: change climate to 25
+2026-08-15 23:17:38,106 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:17:38,107 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "set_temperature",
+      "target": "thermostat",
+      "value": 25
+    }
+  ],
+  "response_text": "The thermostat has been set to 25 degrees."
+}
+2026-08-15 23:17:38,108 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': 25.0}], 'response_text': 'The thermostat has been set to 25 degrees.'}
+2026-08-15 23:17:38,108 [INFO] End-to-end latency: 8.76s
+2026-08-15 23:17:38,108 [INFO] State updated: thermostat -> 25.0
+2026-08-15 23:17:38,110 [INFO] Speaking: The thermostat has been set to 25 degrees.
+2026-08-15 23:17:41,934 [INFO] Listening...
+2026-08-15 23:17:43,922 [INFO] Transcribing...
+2026-08-15 23:17:44,652 [INFO] Transcribed text: television
+2026-08-15 23:17:44,653 [INFO] Sending to Qwen: television
+2026-08-15 23:17:46,642 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:17:46,642 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "tv"
+    }
+  ],
+  "response_text": "The television has been turned on."
+}
+2026-08-15 23:17:46,643 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The television has been turned on.'}
+2026-08-15 23:17:46,643 [INFO] End-to-end latency: 5.10s
+2026-08-15 23:17:46,643 [INFO] State updated: tv -> True
+2026-08-15 23:17:46,644 [INFO] Speaking: The television has been turned on.
+2026-08-15 23:17:49,473 [INFO] Listening...
+2026-08-15 23:17:52,519 [INFO] Transcribing...
+2026-08-15 23:17:53,494 [INFO] Transcribed text: turn off the television
+2026-08-15 23:17:53,495 [INFO] Sending to Qwen: turn off the television
+2026-08-15 23:17:55,437 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:17:55,437 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_off",
+      "target": "tv"
+    }
+  ],
+  "response_text": "The TV has been turned off."
+}
+2026-08-15 23:17:55,437 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'tv', 'value': None}], 'response_text': 'The TV has been turned off.'}
+2026-08-15 23:17:55,438 [INFO] End-to-end latency: 6.36s
+2026-08-15 23:17:55,438 [INFO] State updated: tv -> False
+2026-08-15 23:17:55,439 [INFO] Speaking: The TV has been turned off.
+2026-08-15 23:17:58,151 [INFO] Listening...
+2026-08-15 23:18:01,736 [INFO] Transcribing...
+2026-08-15 23:18:02,551 [INFO] Transcribed text: close the living
+2026-08-15 23:18:02,551 [INFO] Sending to Qwen: close the living
+2026-08-15 23:18:04,355 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:18:04,355 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "lock", "target": "living_room_light"}
+  ],
+  "response_text": "The living room light is now locked."
+}
+2026-08-15 23:18:04,356 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room light is now locked.'}
+2026-08-15 23:18:04,356 [INFO] End-to-end latency: 6.59s
+2026-08-15 23:18:04,356 [INFO] State updated: living_room_light -> True
+2026-08-15 23:18:04,357 [INFO] Speaking: The living room light is now locked.
+2026-08-15 23:18:07,202 [INFO] Listening...
+2026-08-15 23:18:11,829 [INFO] Transcribing...
+2026-08-15 23:18:12,797 [INFO] Transcribed text: turn the living room
+2026-08-15 23:18:12,797 [INFO] Sending to Qwen: turn the living room
+2026-08-15 23:18:14,958 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:18:14,958 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "living_room_light"
+    }
+  ],
+  "response_text": "The living room is now turned on."
+}
+2026-08-15 23:18:14,959 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room is now turned on.'}
+2026-08-15 23:18:14,959 [INFO] End-to-end latency: 8.18s
+2026-08-15 23:18:14,959 [INFO] State updated: living_room_light -> True
+2026-08-15 23:18:14,960 [INFO] Speaking: The living room is now turned on.
+2026-08-15 23:18:17,750 [INFO] Listening...
+2026-08-15 23:18:19,546 [INFO] Transcribing...
+2026-08-15 23:18:20,244 [INFO] Transcribed text: living room
+2026-08-15 23:18:20,245 [INFO] Sending to Qwen: living room
+2026-08-15 23:18:22,264 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:18:22,265 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "living_room_light"
+    }
+  ],
+  "response_text": "The living room lights are turned on."
+}
+2026-08-15 23:18:22,265 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room lights are turned on.'}
+2026-08-15 23:18:22,265 [INFO] End-to-end latency: 4.93s
+2026-08-15 23:18:22,266 [INFO] State updated: living_room_light -> True
+2026-08-15 23:18:22,266 [INFO] Speaking: The living room lights are turned on.
+2026-08-15 23:18:25,134 [INFO] Listening...
+2026-08-15 23:18:28,090 [INFO] Transcribing...
+2026-08-15 23:18:29,037 [INFO] Transcribed text: turn off the living room
+2026-08-15 23:18:29,037 [INFO] Sending to Qwen: turn off the living room
+2026-08-15 23:18:31,130 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:18:31,131 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_off",
+      "target": "living_room_light"
+    }
+  ],
+  "response_text": "The living room lights have been turned off."
+}
+2026-08-15 23:18:31,132 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room lights have been turned off.'}
+2026-08-15 23:18:31,132 [INFO] End-to-end latency: 6.39s
+2026-08-15 23:18:31,132 [INFO] State updated: living_room_light -> False
+2026-08-15 23:18:31,133 [INFO] Speaking: The living room lights have been turned off.
+2026-08-15 23:18:34,150 [INFO] Listening...
+2026-08-15 23:18:35,926 [INFO] Transcribing...
+2026-08-15 23:18:36,665 [ERROR] Voice loop error: 
+2026-08-15 23:18:36,823 [INFO] Listening...
+2026-08-15 23:18:39,528 [INFO] Transcribing...
+2026-08-15 23:18:40,279 [ERROR] Voice loop error: 
+2026-08-15 23:18:40,443 [INFO] Listening...
+2026-08-15 23:18:44,658 [INFO] Transcribing...
+2026-08-15 23:18:45,807 [INFO] Transcribed text: turn off the living room
+2026-08-15 23:18:45,808 [INFO] Sending to Qwen: turn off the living room
+2026-08-15 23:18:47,877 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:18:47,877 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_off",
+      "target": "living_room_light"
+    }
+  ],
+  "response_text": "The living room lights have been turned off."
+}
+2026-08-15 23:18:47,877 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room lights have been turned off.'}
+2026-08-15 23:18:47,878 [INFO] End-to-end latency: 7.60s
+2026-08-15 23:18:47,878 [INFO] State updated: living_room_light -> False
+2026-08-15 23:18:47,879 [INFO] Speaking: The living room lights have been turned off.
+2026-08-15 23:18:50,910 [INFO] Listening...
+2026-08-15 23:18:53,196 [INFO] Transcribing...
+2026-08-15 23:18:54,054 [INFO] Transcribed text: turn off the kitchen
+2026-08-15 23:18:54,054 [INFO] Sending to Qwen: turn off the kitchen
+2026-08-15 23:18:56,073 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:18:56,074 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_off",
+      "target": "kitchen_light"
+    }
+  ],
+  "response_text": "The kitchen lights have been turned off."
+}
+2026-08-15 23:18:56,074 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'kitchen_light', 'value': None}], 'response_text': 'The kitchen lights have been turned off.'}
+2026-08-15 23:18:56,074 [INFO] End-to-end latency: 5.57s
+2026-08-15 23:18:56,075 [INFO] State updated: kitchen_light -> False
+2026-08-15 23:18:56,075 [INFO] Speaking: The kitchen lights have been turned off.
+2026-08-15 23:18:58,895 [INFO] Listening...
+2026-08-15 23:19:03,200 [INFO] Transcribing...
+2026-08-15 23:19:04,478 [INFO] Transcribed text: change temperature to 18°
+2026-08-15 23:19:04,479 [INFO] Sending to Qwen: change temperature to 18°
+2026-08-15 23:19:06,894 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:19:06,894 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "set_temperature",
+      "target": "thermostat",
+      "value": 18
+    }
+  ],
+  "response_text": "The thermostat has been set to 18°C."
+}
+2026-08-15 23:19:06,894 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': 18.0}], 'response_text': 'The thermostat has been set to 18°C.'}
+2026-08-15 23:19:06,895 [INFO] End-to-end latency: 8.39s
+2026-08-15 23:19:06,895 [INFO] State updated: thermostat -> 18.0
+2026-08-15 23:19:06,897 [INFO] Speaking: The thermostat has been set to 18°C.
+2026-08-15 23:19:10,781 [INFO] Listening...
+2026-08-15 23:19:13,647 [INFO] Transcribing...
+2026-08-15 23:19:14,684 [INFO] Transcribed text: thank you goodbye
+2026-08-15 23:19:14,685 [INFO] Sending to Qwen: thank you goodbye
+2026-08-15 23:19:15,638 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:19:15,639 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Goodbye!"
+}
+2026-08-15 23:19:15,639 [INFO] Parsed actions: {'actions': [], 'response_text': 'Goodbye!'}
+2026-08-15 23:19:15,639 [INFO] End-to-end latency: 5.25s
+2026-08-15 23:19:15,639 [INFO] Speaking: Goodbye!
+2026-08-15 23:19:17,070 [INFO] Listening...
+2026-08-15 23:19:19,815 [INFO] Transcribing...
+2026-08-15 23:19:20,355 [ERROR] Voice loop error: 
+2026-08-15 23:19:20,519 [INFO] Listening...
+2026-08-15 23:19:24,455 [INFO] Transcribing...
+2026-08-15 23:19:25,171 [ERROR] Voice loop error: 
+2026-08-15 23:19:25,346 [INFO] Listening...
+2026-08-15 23:19:25,603 [INFO] Voice loop paused by user.
+2026-08-15 23:19:27,950 [INFO] Transcribing...
+2026-08-15 23:19:28,603 [ERROR] Voice loop error: 
+2026-08-15 23:26:10,936 [INFO] === Assistant session started: 2026-08-15T23:26:10.936175 ===
+2026-08-15 23:26:11,582 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:26:12,933 [INFO] Listening...
+2026-08-15 23:26:16,099 [INFO] Transcribing...
+2026-08-15 23:26:16,945 [INFO] Transcribed text: hello
+2026-08-15 23:26:16,946 [INFO] Sending to Qwen: hello
+2026-08-15 23:26:22,286 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:26:22,287 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Hello! How can I assist you today?"
+}
+2026-08-15 23:26:22,287 [INFO] Parsed actions: {'actions': [], 'response_text': 'Hello! How can I assist you today?'}
+2026-08-15 23:26:22,287 [INFO] End-to-end latency: 9.56s
+2026-08-15 23:26:22,288 [INFO] Speaking: Hello! How can I assist you today?
+2026-08-15 23:26:22,382 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-15 23:26:22,382 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:26:26,241 [INFO] Listening...
+2026-08-15 23:26:27,948 [INFO] Transcribing...
+2026-08-15 23:26:28,678 [ERROR] Voice loop error: 
+2026-08-15 23:26:28,849 [INFO] Listening...
+2026-08-15 23:26:31,925 [INFO] Transcribing...
+2026-08-15 23:26:32,893 [INFO] Transcribed text: turn on living room lights
+2026-08-15 23:26:32,894 [INFO] Sending to Qwen: turn on living room lights
+2026-08-15 23:26:34,661 [INFO] Voice loop paused by user.
+2026-08-15 23:26:35,219 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:26:35,220 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "living_room_light"
+    }
+  ],
+  "response_text": "The living room lights have been turned on."
+}
+2026-08-15 23:26:35,220 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room lights have been turned on.'}
+2026-08-15 23:26:35,220 [INFO] End-to-end latency: 6.54s
+2026-08-15 23:26:35,221 [INFO] State updated: living_room_light -> True
+2026-08-15 23:26:35,222 [INFO] Speaking: The living room lights have been turned on.
+2026-08-15 23:26:35,356 [INFO] Voice loop resumed by user.
+2026-08-15 23:26:38,269 [INFO] Listening...
+2026-08-15 23:26:43,720 [INFO] Transcribing...
+2026-08-15 23:26:44,834 [INFO] Transcribed text: turn off living room lights
+2026-08-15 23:26:44,834 [INFO] Sending to Qwen: turn off living room lights
+2026-08-15 23:26:46,775 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:26:46,775 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_off",
+      "target": "living_room_light"
+    }
+  ],
+  "response_text": "Living room lights turned off."
+}
+2026-08-15 23:26:46,775 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'living_room_light', 'value': None}], 'response_text': 'Living room lights turned off.'}
+2026-08-15 23:26:46,775 [INFO] End-to-end latency: 8.91s
+2026-08-15 23:26:46,776 [INFO] State updated: living_room_light -> False
+2026-08-15 23:26:46,776 [INFO] Speaking: Living room lights turned off.
+2026-08-15 23:26:49,459 [INFO] Listening...
+2026-08-15 23:26:58,246 [INFO] Transcribing...
+2026-08-15 23:26:59,725 [INFO] Transcribed text: temperature
+2026-08-15 23:26:59,726 [INFO] Sending to Qwen: temperature
+2026-08-15 23:27:02,129 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:27:02,130 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "set_temperature",
+      "target": "thermostat",
+      "value": null
+    }
+  ],
+  "response_text": "The thermostat has been set to the desired temperature."
+}
+2026-08-15 23:27:02,130 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': None}], 'response_text': 'The thermostat has been set to the desired temperature.'}
+2026-08-15 23:27:02,130 [INFO] End-to-end latency: 13.08s
+2026-08-15 23:27:02,130 [WARNING] Unhandled action/value combo: action='set_temperature' target='thermostat' value=None
+2026-08-15 23:27:02,131 [INFO] Speaking: The thermostat has been set to the desired temperature.
+2026-08-15 23:27:05,836 [INFO] Listening...
+2026-08-15 23:27:17,086 [INFO] Transcribing...
+2026-08-15 23:27:18,449 [ERROR] Voice loop error: 
+2026-08-15 23:27:18,617 [INFO] Listening...
+2026-08-15 23:27:24,205 [INFO] Transcribing...
+2026-08-15 23:27:25,217 [INFO] Transcribed text: unlock front do
+2026-08-15 23:27:25,217 [INFO] Sending to Qwen: unlock front do
+2026-08-15 23:27:27,192 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:27:27,193 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock"
+    }
+  ],
+  "response_text": "The front door is now unlocked."
+}
+2026-08-15 23:27:27,193 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now unlocked.'}
+2026-08-15 23:27:27,193 [INFO] End-to-end latency: 8.74s
+2026-08-15 23:27:27,193 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:27:27,196 [INFO] Speaking: The front door is now unlocked.
+2026-08-15 23:27:29,981 [INFO] Listening...
+2026-08-15 23:27:33,656 [INFO] Transcribing...
+2026-08-15 23:27:34,558 [INFO] Transcribed text: front door lock
+2026-08-15 23:27:34,559 [INFO] Sending to Qwen: front door lock
+2026-08-15 23:27:36,657 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:27:36,658 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock"
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:27:36,659 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:27:36,659 [INFO] End-to-end latency: 7.08s
+2026-08-15 23:27:36,659 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:27:36,660 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:27:39,341 [INFO] Listening...
+2026-08-15 23:27:43,507 [INFO] Transcribing...
+2026-08-15 23:27:44,608 [INFO] Transcribed text: open open bedroom lights
+2026-08-15 23:27:44,608 [INFO] Sending to Qwen: open open bedroom lights
+2026-08-15 23:27:46,887 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:27:46,888 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "bedroom_light"
+    }
+  ],
+  "response_text": "The bedroom lights have been turned on."
+}
+2026-08-15 23:27:46,888 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned on.'}
+2026-08-15 23:27:46,888 [INFO] End-to-end latency: 8.00s
+2026-08-15 23:27:46,889 [INFO] State updated: bedroom_light -> True
+2026-08-15 23:27:46,892 [INFO] Speaking: The bedroom lights have been turned on.
+2026-08-15 23:27:49,844 [INFO] Listening...
+2026-08-15 23:27:51,831 [INFO] Transcribing...
+2026-08-15 23:27:52,609 [INFO] Transcribed text: bedroom lights
+2026-08-15 23:27:52,609 [INFO] Sending to Qwen: bedroom lights
+2026-08-15 23:27:54,899 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:27:54,899 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "bedroom_light"
+    }
+  ],
+  "response_text": "The bedroom lights have been turned on."
+}
+2026-08-15 23:27:54,900 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned on.'}
+2026-08-15 23:27:54,900 [INFO] End-to-end latency: 5.46s
+2026-08-15 23:27:54,900 [INFO] State updated: bedroom_light -> True
+2026-08-15 23:27:54,901 [INFO] Speaking: The bedroom lights have been turned on.
+2026-08-15 23:27:57,843 [INFO] Listening...
+2026-08-15 23:28:00,086 [INFO] Voice loop paused by user.
+2026-08-15 23:28:00,659 [INFO] Transcribing...
+2026-08-15 23:28:01,468 [ERROR] Voice loop error: 
+2026-08-15 23:28:24,607 [INFO] Voice loop resumed by user.
+2026-08-15 23:28:25,194 [INFO] Listening...
+2026-08-15 23:28:27,249 [INFO] Transcribing...
+2026-08-15 23:28:27,921 [ERROR] Voice loop error: 
+2026-08-15 23:28:28,092 [INFO] Listening...
+2026-08-15 23:28:32,976 [INFO] Transcribing...
+2026-08-15 23:28:33,988 [INFO] Transcribed text: unlock
+2026-08-15 23:28:33,989 [INFO] Sending to Qwen: unlock
+2026-08-15 23:28:35,981 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:28:35,982 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock"
+    }
+  ],
+  "response_text": "The front door lock has been unlocked."
+}
+2026-08-15 23:28:35,982 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door lock has been unlocked.'}
+2026-08-15 23:28:35,982 [INFO] End-to-end latency: 8.06s
+2026-08-15 23:28:35,983 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:28:35,983 [INFO] Speaking: The front door lock has been unlocked.
+2026-08-15 23:28:38,904 [INFO] Listening...
+2026-08-15 23:28:41,749 [INFO] Transcribing...
+2026-08-15 23:28:42,726 [ERROR] Voice loop error: 
+2026-08-15 23:28:42,887 [INFO] Listening...
+2026-08-15 23:28:46,212 [INFO] Transcribing...
+2026-08-15 23:28:47,135 [INFO] Transcribed text: turn off bedroom lights
+2026-08-15 23:28:47,136 [INFO] Sending to Qwen: turn off bedroom lights
+2026-08-15 23:28:49,286 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:28:49,286 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_off",
+      "target": "bedroom_light"
+    }
+  ],
+  "response_text": "The bedroom lights have been turned off."
+}
+2026-08-15 23:28:49,286 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned off.'}
+2026-08-15 23:28:49,286 [INFO] End-to-end latency: 6.56s
+2026-08-15 23:28:49,287 [INFO] State updated: bedroom_light -> False
+2026-08-15 23:28:49,287 [INFO] Speaking: The bedroom lights have been turned off.
+2026-08-15 23:28:52,230 [INFO] Listening...
+2026-08-15 23:28:55,625 [INFO] Transcribing...
+2026-08-15 23:28:56,894 [INFO] Transcribed text: darken here and i'm freezing
+2026-08-15 23:28:56,895 [INFO] Sending to Qwen: darken here and i'm freezing
+2026-08-15 23:28:59,660 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:28:59,660 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "living_room_light"},
+    {"action": "increase_temp", "value": null}
+  ],
+  "response_text": "The lights in the living room have been dimmed, and your thermostat has been increased."
+}
+2026-08-15 23:28:59,661 [ERROR] Failed to parse/validate model output: 1 validation error for AssistantResponse
+actions.1.target
+  Field required [type=missing, input_value={'action': 'increase_temp', 'value': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-08-15 23:28:59,661 [ERROR] Voice loop error: Could not parse a valid action from model output: 1 validation error for AssistantResponse
+actions.1.target
+  Field required [type=missing, input_value={'action': 'increase_temp', 'value': None}, input_type=dict]
+    For further information visit https://errors.pydantic.dev/2.13/v/missing
+2026-08-15 23:29:00,020 [INFO] Listening...
+2026-08-15 23:29:02,864 [INFO] Transcribing...
+2026-08-15 23:29:03,741 [ERROR] Voice loop error: 
+2026-08-15 23:29:03,909 [INFO] Listening...
+2026-08-15 23:29:05,915 [INFO] Transcribing...
+2026-08-15 23:29:06,525 [ERROR] Voice loop error: 
+2026-08-15 23:29:06,695 [INFO] Listening...
+2026-08-15 23:29:09,211 [INFO] Transcribing...
+2026-08-15 23:29:09,506 [INFO] Voice loop paused by user.
+2026-08-15 23:29:09,920 [ERROR] Voice loop error: 
+2026-08-15 23:32:46,345 [INFO] === Assistant session started: 2026-08-15T23:32:46.344547 ===
+2026-08-15 23:32:46,996 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:32:48,339 [INFO] Listening...
+2026-08-15 23:32:55,360 [INFO] Transcribing...
+2026-08-15 23:32:56,723 [INFO] Transcribed text: lock front door
+2026-08-15 23:32:56,723 [INFO] Sending to Qwen: lock front door
+2026-08-15 23:33:00,648 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:33:00,648 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:33:00,649 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:33:00,649 [INFO] End-to-end latency: 12.51s
+2026-08-15 23:33:00,649 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:33:00,651 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:33:00,732 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-15 23:33:00,733 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:33:03,470 [INFO] Listening...
+2026-08-15 23:33:05,457 [INFO] Transcribing...
+2026-08-15 23:33:06,638 [INFO] Transcribed text: front door
+2026-08-15 23:33:06,638 [INFO] Sending to Qwen: front door
+2026-08-15 23:33:08,992 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:33:08,992 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:33:08,993 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:33:08,993 [INFO] End-to-end latency: 5.91s
+2026-08-15 23:33:08,993 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:33:08,994 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:33:11,626 [INFO] Listening...
+2026-08-15 23:33:13,910 [INFO] Transcribing...
+2026-08-15 23:33:14,752 [INFO] Transcribed text: front door
+2026-08-15 23:33:14,754 [INFO] Sending to Qwen: front door
+2026-08-15 23:33:17,055 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:33:17,056 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:33:17,056 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:33:17,056 [INFO] End-to-end latency: 5.82s
+2026-08-15 23:33:17,057 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:33:17,058 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:33:19,680 [INFO] Listening...
+2026-08-15 23:33:23,267 [INFO] Transcribing...
+2026-08-15 23:33:24,182 [INFO] Transcribed text: unlock do
+2026-08-15 23:33:24,183 [INFO] Sending to Qwen: unlock do
+2026-08-15 23:33:26,394 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:33:26,395 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "unlock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now unlocked."
+}
+2026-08-15 23:33:26,395 [INFO] Parsed actions: {'actions': [{'action': 'unlock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now unlocked.'}
+2026-08-15 23:33:26,395 [INFO] End-to-end latency: 7.10s
+2026-08-15 23:33:26,396 [INFO] State updated: front_door_lock -> False
+2026-08-15 23:33:26,396 [INFO] Speaking: The front door is now unlocked.
+2026-08-15 23:33:29,169 [INFO] Listening...
+2026-08-15 23:33:31,823 [INFO] Transcribing...
+2026-08-15 23:37:20,453 [INFO] === Assistant session started: 2026-08-15T23:37:20.453383 ===
+2026-08-15 23:37:21,105 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:37:22,452 [INFO] Listening...
+2026-08-15 23:37:24,967 [INFO] Transcribing...
+2026-08-15 23:37:25,774 [ERROR] Voice loop error: 
+2026-08-15 23:37:25,946 [INFO] Listening...
+2026-08-15 23:37:30,671 [INFO] Transcribing...
+2026-08-15 23:37:31,608 [INFO] Transcribed text: hello
+2026-08-15 23:37:31,608 [INFO] Sending to Qwen: hello
+2026-08-15 23:37:32,823 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:37:32,824 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Hello! How can I help you today?"
+}
+2026-08-15 23:37:32,824 [INFO] Parsed actions: {'actions': [], 'response_text': 'Hello! How can I help you today?'}
+2026-08-15 23:37:32,825 [INFO] End-to-end latency: 7.05s
+2026-08-15 23:37:32,825 [INFO] Speaking: Hello! How can I help you today?
+2026-08-15 23:37:32,896 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-15 23:37:32,896 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:37:36,587 [INFO] Listening...
+2026-08-15 23:37:38,264 [INFO] Transcribing...
+2026-08-15 23:37:39,109 [ERROR] Voice loop error: 
+2026-08-15 23:37:39,336 [INFO] Listening...
+2026-08-15 23:37:42,242 [INFO] Transcribing...
+2026-08-15 23:37:43,125 [INFO] Transcribed text: unlock door
+2026-08-15 23:37:43,126 [INFO] Sending to Qwen: unlock door
+2026-08-15 23:37:46,797 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:37:46,798 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    },
+    {
+      "action": "unlock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The door is now unlocked."
+}
+2026-08-15 23:37:46,798 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}, {'action': 'unlock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The door is now unlocked.'}
+2026-08-15 23:37:46,798 [INFO] End-to-end latency: 7.69s
+2026-08-15 23:37:46,799 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:37:46,799 [INFO] State updated: front_door_lock -> False
+2026-08-15 23:37:46,800 [INFO] Speaking: The door is now unlocked.
+2026-08-15 23:37:49,284 [INFO] Listening...
+2026-08-15 23:37:57,376 [INFO] Transcribing...
+2026-08-15 23:37:58,476 [INFO] Transcribed text: lock front door
+2026-08-15 23:37:58,477 [INFO] Sending to Qwen: lock front door
+2026-08-15 23:38:00,899 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:38:00,900 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:38:00,900 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:38:00,900 [INFO] End-to-end latency: 12.01s
+2026-08-15 23:38:00,900 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:38:00,901 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:38:10,148 [INFO] === Assistant session started: 2026-08-15T23:38:10.148352 ===
+2026-08-15 23:38:10,737 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:38:12,064 [INFO] Listening...
+2026-08-15 23:38:15,000 [INFO] Transcribing...
+2026-08-15 23:38:15,603 [ERROR] Voice loop error: 
+2026-08-15 23:38:15,778 [INFO] Listening...
+2026-08-15 23:38:37,134 [INFO] === Assistant session started: 2026-08-15T23:38:37.134696 ===
+2026-08-15 23:38:37,732 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:38:39,058 [INFO] Listening...
+2026-08-15 23:38:42,574 [INFO] Transcribing...
+2026-08-15 23:38:43,421 [ERROR] Voice loop error: 
+2026-08-15 23:38:43,590 [INFO] Listening...
+2026-08-15 23:38:45,897 [INFO] Transcribing...
+2026-08-15 23:38:46,664 [INFO] Transcribed text: front door
+2026-08-15 23:38:46,665 [INFO] Sending to Qwen: front door
+2026-08-15 23:38:48,014 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:38:48,015 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Sorry, I didn't catch a command I can act on."
+}
+2026-08-15 23:38:48,016 [INFO] Parsed actions: {'actions': [], 'response_text': "Sorry, I didn't catch a command I can act on."}
+2026-08-15 23:38:48,016 [INFO] End-to-end latency: 4.59s
+2026-08-15 23:38:48,016 [INFO] Speaking: Sorry, I didn't catch a command I can act on.
+2026-08-15 23:38:48,080 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-15 23:38:48,080 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:38:52,165 [INFO] Listening...
+2026-08-15 23:39:10,957 [INFO] === Assistant session started: 2026-08-15T23:39:10.957468 ===
+2026-08-15 23:39:11,570 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:39:12,893 [INFO] Listening...
+2026-08-15 23:39:15,601 [INFO] Transcribing...
+2026-08-15 23:39:16,446 [INFO] Transcribed text: unlock front door
+2026-08-15 23:39:16,446 [INFO] Sending to Qwen: unlock front door
+2026-08-15 23:39:18,818 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:39:18,818 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "unlock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now unlocked."
+}
+2026-08-15 23:39:18,818 [INFO] Parsed actions: {'actions': [{'action': 'unlock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now unlocked.'}
+2026-08-15 23:39:18,819 [INFO] End-to-end latency: 6.12s
+2026-08-15 23:39:18,819 [INFO] State updated: front_door_lock -> False
+2026-08-15 23:39:18,820 [INFO] Speaking: The front door is now unlocked.
+2026-08-15 23:39:18,890 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-15 23:39:18,890 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:39:21,777 [INFO] Listening...
+2026-08-15 23:39:23,504 [INFO] Transcribing...
+2026-08-15 23:39:24,221 [ERROR] Voice loop error: 
+2026-08-15 23:39:24,410 [INFO] Listening...
+2026-08-15 23:39:26,948 [INFO] Transcribing...
+2026-08-15 23:39:27,748 [ERROR] Voice loop error: 
+2026-08-15 23:39:27,937 [INFO] Listening...
+2026-08-15 23:39:30,942 [INFO] Transcribing...
+2026-08-15 23:39:31,785 [INFO] Transcribed text: lock front door
+2026-08-15 23:39:31,786 [INFO] Sending to Qwen: lock front door
+2026-08-15 23:39:34,024 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:39:34,024 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:39:34,025 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:39:34,025 [INFO] End-to-end latency: 6.28s
+2026-08-15 23:39:34,026 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:39:34,026 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:39:36,648 [INFO] Listening...
+2026-08-15 23:39:40,443 [INFO] Transcribing...
+2026-08-15 23:39:41,551 [INFO] Transcribed text: unlock front door
+2026-08-15 23:39:41,551 [INFO] Sending to Qwen: unlock front door
+2026-08-15 23:39:43,822 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:39:43,823 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "unlock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now unlocked."
+}
+2026-08-15 23:39:43,823 [INFO] Parsed actions: {'actions': [{'action': 'unlock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now unlocked.'}
+2026-08-15 23:39:43,823 [INFO] End-to-end latency: 7.57s
+2026-08-15 23:39:43,823 [INFO] State updated: front_door_lock -> False
+2026-08-15 23:39:43,824 [INFO] Speaking: The front door is now unlocked.
+2026-08-15 23:39:46,615 [INFO] Listening...
+2026-08-15 23:39:48,872 [INFO] Transcribing...
+2026-08-15 23:39:49,626 [ERROR] Voice loop error: 
+2026-08-15 23:39:49,795 [INFO] Listening...
+2026-08-15 23:41:28,245 [INFO] === Assistant session started: 2026-08-15T23:41:28.245742 ===
+2026-08-15 23:41:28,870 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:41:30,219 [INFO] Listening...
+2026-08-15 23:41:34,265 [INFO] Transcribing...
+2026-08-15 23:41:35,266 [INFO] Transcribed text: lock front do
+2026-08-15 23:41:35,267 [INFO] Sending to Qwen: lock front do
+2026-08-15 23:41:37,627 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:41:37,628 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:41:37,628 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:41:37,629 [INFO] End-to-end latency: 7.62s
+2026-08-15 23:41:37,630 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:41:37,631 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:41:37,719 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-15 23:41:37,719 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:41:40,478 [INFO] Listening...
+2026-08-15 23:41:42,699 [INFO] Transcribing...
+2026-08-15 23:41:43,436 [ERROR] Voice loop error: 
+2026-08-15 23:41:43,663 [INFO] Listening...
+2026-08-15 23:41:46,059 [INFO] Transcribing...
+2026-08-15 23:41:46,788 [ERROR] Voice loop error: 
+2026-08-15 23:41:46,957 [INFO] Listening...
+2026-08-15 23:41:49,032 [INFO] Transcribing...
+2026-08-15 23:41:49,646 [ERROR] Voice loop error: 
+2026-08-15 23:41:49,809 [INFO] Listening...
+2026-08-15 23:41:51,905 [INFO] Transcribing...
+2026-08-15 23:41:52,778 [INFO] Transcribed text: front door
+2026-08-15 23:41:52,778 [INFO] Sending to Qwen: front door
+2026-08-15 23:41:54,249 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:41:54,249 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Sorry, I didn't catch a command I can act on."
+}
+2026-08-15 23:41:54,249 [INFO] Parsed actions: {'actions': [], 'response_text': "Sorry, I didn't catch a command I can act on."}
+2026-08-15 23:41:54,250 [INFO] End-to-end latency: 4.60s
+2026-08-15 23:41:54,250 [INFO] Speaking: Sorry, I didn't catch a command I can act on.
+2026-08-15 23:41:58,255 [INFO] Listening...
+2026-08-15 23:42:00,240 [INFO] Transcribing...
+2026-08-15 23:42:00,972 [INFO] Transcribed text: front door
+2026-08-15 23:42:00,972 [INFO] Sending to Qwen: front door
+2026-08-15 23:42:03,275 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:42:03,275 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-15 23:42:03,276 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-15 23:42:03,276 [INFO] End-to-end latency: 5.42s
+2026-08-15 23:42:03,276 [INFO] State updated: front_door_lock -> True
+2026-08-15 23:42:03,288 [INFO] Speaking: The front door is now locked.
+2026-08-15 23:42:05,934 [INFO] Listening...
+2026-08-15 23:42:08,220 [INFO] Transcribing...
+2026-08-15 23:42:09,010 [INFO] Transcribed text: front door
+2026-08-15 23:42:09,011 [INFO] Sending to Qwen: front door
+2026-08-15 23:42:10,386 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:42:10,387 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Sorry, I didn't catch a command I can act on."
+}
+2026-08-15 23:42:10,387 [INFO] Parsed actions: {'actions': [], 'response_text': "Sorry, I didn't catch a command I can act on."}
+2026-08-15 23:42:10,387 [INFO] End-to-end latency: 4.85s
+2026-08-15 23:42:10,388 [INFO] Speaking: Sorry, I didn't catch a command I can act on.
+2026-08-15 23:42:14,390 [INFO] Listening...
+2026-08-15 23:42:16,189 [INFO] Transcribing...
+2026-08-15 23:42:16,929 [ERROR] Voice loop error: 
+2026-08-15 23:42:17,100 [INFO] Listening...
+2026-08-15 23:42:19,337 [INFO] Transcribing...
+2026-08-15 23:42:19,958 [ERROR] Voice loop error: 
+2026-08-15 23:42:20,126 [INFO] Listening...
+2026-08-15 23:42:24,783 [INFO] Transcribing...
+2026-08-15 23:42:25,844 [INFO] Transcribed text: unlock front door
+2026-08-15 23:42:25,845 [INFO] Sending to Qwen: unlock front door
+2026-08-15 23:42:28,233 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:42:28,234 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "unlock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now unlocked."
+}
+2026-08-15 23:42:28,234 [INFO] Parsed actions: {'actions': [{'action': 'unlock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now unlocked.'}
+2026-08-15 23:42:28,234 [INFO] End-to-end latency: 8.27s
+2026-08-15 23:42:28,235 [INFO] State updated: front_door_lock -> False
+2026-08-15 23:42:28,238 [INFO] Speaking: The front door is now unlocked.
+2026-08-15 23:42:31,027 [INFO] Listening...
+2026-08-15 23:43:55,256 [INFO] === Assistant session started: 2026-08-15T23:43:55.256709 ===
+2026-08-15 23:43:55,908 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:43:57,252 [INFO] Listening...
+2026-08-15 23:44:00,328 [INFO] Transcribing...
+2026-08-15 23:44:01,203 [ERROR] Voice loop error: 
+2026-08-15 23:44:01,386 [INFO] Listening...
+2026-08-15 23:46:00,448 [INFO] === Assistant session started: 2026-08-15T23:46:00.448719 ===
+2026-08-15 23:46:01,040 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:46:02,353 [INFO] Listening...
+2026-08-15 23:46:04,311 [INFO] Transcribing...
+2026-08-15 23:46:05,076 [ERROR] Voice loop error: 
+2026-08-15 23:46:05,243 [INFO] Listening...
+2026-08-15 23:50:45,079 [INFO] === Assistant session started: 2026-08-15T23:50:45.079464 ===
+2026-08-15 23:50:45,731 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:50:47,066 [INFO] Listening...
+2026-08-15 23:50:49,372 [INFO] Transcribing...
+2026-08-15 23:50:50,092 [ERROR] Voice loop error: 
+2026-08-15 23:50:50,311 [INFO] Listening...
+2026-08-15 23:51:31,524 [INFO] === Assistant session started: 2026-08-15T23:51:31.524316 ===
+2026-08-15 23:51:32,172 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:51:33,501 [INFO] Listening...
+2026-08-15 23:51:37,022 [INFO] Transcribing...
+2026-08-15 23:51:37,876 [ERROR] Voice loop error: 
+2026-08-15 23:51:38,059 [INFO] Listening...
+2026-08-15 23:51:40,205 [INFO] Transcribing...
+2026-08-15 23:51:40,791 [ERROR] Voice loop error: 
+2026-08-15 23:51:40,962 [INFO] Listening...
+2026-08-15 23:54:17,117 [INFO] === Assistant session started: 2026-08-15T23:54:17.117681 ===
+2026-08-15 23:54:17,745 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:54:19,114 [INFO] Listening...
+2026-08-15 23:54:22,406 [INFO] Transcribing...
+2026-08-15 23:54:23,146 [ERROR] Voice loop error: 
+2026-08-15 23:54:23,348 [INFO] Listening...
+2026-08-15 23:54:25,336 [INFO] Transcribing...
+2026-08-15 23:54:25,903 [ERROR] Voice loop error: 
+2026-08-15 23:54:26,079 [INFO] Listening...
+2026-08-15 23:54:28,134 [INFO] Transcribing...
+2026-08-15 23:54:28,531 [ERROR] Voice loop error: 
+2026-08-15 23:54:28,695 [INFO] Listening...
+2026-08-15 23:54:31,809 [INFO] Transcribing...
+2026-08-15 23:54:32,639 [ERROR] Voice loop error: 
+2026-08-15 23:54:32,806 [INFO] Listening...
+2026-08-15 23:54:37,765 [INFO] Transcribing...
+2026-08-15 23:54:38,730 [ERROR] Voice loop error: 
+2026-08-15 23:54:38,979 [INFO] Listening...
+2026-08-15 23:54:41,585 [INFO] Transcribing...
+2026-08-15 23:54:42,418 [INFO] Transcribed text: turn off
+2026-08-15 23:54:42,419 [INFO] Sending to Qwen: turn off
+2026-08-15 23:54:48,289 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:54:48,290 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_off", "target": "living_room_light"}
+  ],
+  "response_text": "The living room lights have been turned off."
+}
+2026-08-15 23:54:48,290 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'living_room_light', 'value': None}], 'response_text': 'The living room lights have been turned off.'}
+2026-08-15 23:54:48,290 [INFO] End-to-end latency: 9.56s
+2026-08-15 23:54:48,290 [INFO] State updated: living_room_light -> False
+2026-08-15 23:54:48,291 [INFO] Speaking: The living room lights have been turned off.
+2026-08-15 23:54:48,352 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-15 23:54:48,353 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-15 23:54:51,486 [INFO] Listening...
+2026-08-15 23:54:56,371 [INFO] Transcribing...
+2026-08-15 23:54:57,441 [INFO] Transcribed text: set temperature to 18°
+2026-08-15 23:54:57,442 [INFO] Sending to Qwen: set temperature to 18°
+2026-08-15 23:54:59,904 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-15 23:54:59,904 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "set_temperature",
+      "target": "thermostat",
+      "value": 18
+    }
+  ],
+  "response_text": "The thermostat has been set to 18 degrees."
+}
+2026-08-15 23:54:59,904 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': 18.0}], 'response_text': 'The thermostat has been set to 18 degrees.'}
+2026-08-15 23:54:59,904 [INFO] End-to-end latency: 8.82s
+2026-08-15 23:54:59,905 [INFO] State updated: thermostat -> 18.0
+2026-08-15 23:54:59,907 [INFO] Speaking: The thermostat has been set to 18 degrees.
+2026-08-15 23:55:03,386 [INFO] Listening...
+2026-08-15 23:55:07,012 [INFO] Transcribing...
+2026-08-15 23:55:08,137 [ERROR] Voice loop error: 
+2026-08-15 23:55:08,363 [INFO] Listening...
+2026-08-15 23:59:23,313 [INFO] === Assistant session started: 2026-08-15T23:59:23.313142 ===
+2026-08-15 23:59:23,970 [INFO] Calibrating microphone for ambient noise...
+2026-08-15 23:59:25,325 [INFO] Listening...
+2026-08-15 23:59:28,302 [INFO] Transcribing...
+2026-08-15 23:59:29,074 [ERROR] Voice loop error: 
+2026-08-15 23:59:29,256 [INFO] Listening...
+2026-08-15 23:59:31,984 [INFO] Transcribing...
+2026-08-15 23:59:32,605 [ERROR] Voice loop error: 
+2026-08-15 23:59:32,795 [INFO] Listening...
+2026-08-15 23:59:35,335 [INFO] Transcribing...
+2026-08-15 23:59:36,064 [ERROR] Voice loop error: 
+2026-08-15 23:59:36,275 [INFO] Listening...
+2026-08-16 00:01:19,570 [INFO] === Assistant session started: 2026-08-16T00:01:19.570288 ===
+2026-08-16 00:01:20,162 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 00:01:21,517 [INFO] Listening...
+2026-08-16 00:01:24,103 [INFO] Transcribing...
+2026-08-16 00:01:24,755 [ERROR] Voice loop error: 
+2026-08-16 00:01:24,934 [INFO] Listening...
+2026-08-16 00:01:28,500 [INFO] Transcribing...
+2026-08-16 00:01:29,424 [INFO] Transcribed text: close front door
+2026-08-16 00:01:29,424 [INFO] Sending to Qwen: close front door
+2026-08-16 00:01:35,792 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 00:01:35,793 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now locked."
+}
+2026-08-16 00:01:35,794 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now locked.'}
+2026-08-16 00:01:35,794 [INFO] End-to-end latency: 11.04s
+2026-08-16 00:01:35,795 [INFO] State updated: front_door_lock -> True
+2026-08-16 00:01:35,796 [INFO] Speaking: The front door is now locked.
+2026-08-16 00:01:35,848 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 00:01:35,848 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-16 00:01:38,566 [INFO] Listening...
+2026-08-16 00:02:50,477 [INFO] === Assistant session started: 2026-08-16T00:02:50.477155 ===
+2026-08-16 00:02:51,088 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 00:02:52,446 [INFO] Listening...
+2026-08-16 00:02:54,731 [INFO] Transcribing...
+2026-08-16 00:02:55,529 [ERROR] Voice loop error: 
+2026-08-16 00:03:07,028 [INFO] === Assistant session started: 2026-08-16T00:03:07.028782 ===
+2026-08-16 00:03:07,611 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 00:03:08,965 [INFO] Listening...
+2026-08-16 00:03:11,992 [INFO] Transcribing...
+2026-08-16 00:03:12,743 [ERROR] Voice loop error: 
+2026-08-16 00:03:12,923 [INFO] Listening...
+2026-08-16 00:04:01,775 [INFO] === Assistant session started: 2026-08-16T00:04:01.775770 ===
+2026-08-16 00:04:02,449 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 00:04:03,806 [INFO] Listening...
+2026-08-16 00:04:06,302 [INFO] Transcribing...
+2026-08-16 00:04:06,883 [ERROR] Voice loop error: 
+2026-08-16 00:04:07,259 [INFO] Listening...
+2026-08-16 00:04:10,657 [INFO] Transcribing...
+2026-08-16 00:04:11,565 [ERROR] Voice loop error: 
+2026-08-16 00:04:11,725 [INFO] Listening...
+2026-08-16 00:04:15,660 [INFO] Transcribing...
+2026-08-16 00:04:16,597 [INFO] Transcribed text: unlock front door
+2026-08-16 00:04:16,597 [INFO] Sending to Qwen: unlock front door
+2026-08-16 00:04:18,802 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 00:04:18,802 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "unlock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The front door is now unlocked."
+}
+2026-08-16 00:04:18,803 [INFO] Parsed actions: {'actions': [{'action': 'unlock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The front door is now unlocked.'}
+2026-08-16 00:04:18,803 [INFO] End-to-end latency: 7.24s
+2026-08-16 00:04:18,803 [INFO] State updated: front_door_lock -> False
+2026-08-16 00:04:18,806 [INFO] Speaking: The front door is now unlocked.
+2026-08-16 00:04:18,858 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\\venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 00:04:18,858 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\AI-POWERED-HOME-VIRTUAL-ASSISTANT-MAIN\venv\Lib\site-packages\comtypes\gen'
+2026-08-16 00:04:21,714 [INFO] Listening...
+2026-08-16 00:04:24,970 [INFO] Transcribing...
+2026-08-16 00:04:25,606 [ERROR] Voice loop error: 
+2026-08-16 00:04:25,781 [INFO] Listening...
+2026-08-16 00:04:28,810 [INFO] Transcribing...
+2026-08-16 00:04:29,670 [INFO] Transcribed text: open bedroom
+2026-08-16 00:04:29,671 [INFO] Sending to Qwen: open bedroom
+2026-08-16 00:04:31,851 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 00:04:31,852 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "turn_on",
+      "target": "bedroom_light"
+    }
+  ],
+  "response_text": "The bedroom lights have been turned on."
+}
+2026-08-16 00:04:31,852 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned on.'}
+2026-08-16 00:04:31,852 [INFO] End-to-end latency: 6.24s
+2026-08-16 00:04:31,853 [INFO] State updated: bedroom_light -> True
+2026-08-16 00:04:31,855 [INFO] Speaking: The bedroom lights have been turned on.
+2026-08-16 00:04:34,875 [INFO] Listening...
+2026-08-16 00:04:37,230 [INFO] Transcribing...
+2026-08-16 00:04:37,809 [ERROR] Voice loop error: 
+2026-08-16 00:04:38,035 [INFO] Listening...
+2026-08-16 00:04:40,433 [INFO] Transcribing...
+2026-08-16 00:04:41,293 [INFO] Transcribed text: lock doors
+2026-08-16 00:04:41,293 [INFO] Sending to Qwen: lock doors
+2026-08-16 00:04:43,494 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 00:04:43,494 [INFO] Raw Qwen output: {
+  "actions": [
+    {
+      "action": "lock",
+      "target": "front_door_lock",
+      "value": null
+    }
+  ],
+  "response_text": "The doors are now locked."
+}
+2026-08-16 00:04:43,495 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The doors are now locked.'}
+2026-08-16 00:04:43,495 [INFO] End-to-end latency: 5.69s
+2026-08-16 00:04:43,495 [INFO] State updated: front_door_lock -> True
+2026-08-16 00:04:43,496 [INFO] Speaking: The doors are now locked.
+2026-08-16 23:19:44,261 [INFO] === Assistant session started: 2026-08-16T23:19:44.261123 ===
+2026-08-16 23:19:45,448 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 23:19:46,875 [INFO] Listening...
+2026-08-16 23:19:49,241 [INFO] Transcribing...
+2026-08-16 23:19:49,830 [ERROR] Voice loop error: 
+2026-08-16 23:19:50,003 [INFO] Listening...
+2026-08-16 23:19:52,711 [INFO] Transcribing...
+2026-08-16 23:19:53,217 [ERROR] Voice loop error: 
+2026-08-16 23:19:53,392 [INFO] Listening...
+2026-08-16 23:19:55,931 [INFO] Transcribing...
+2026-08-16 23:19:56,441 [ERROR] Voice loop error: 
+2026-08-16 23:19:56,627 [INFO] Listening...
+2026-08-16 23:19:59,232 [INFO] Transcribing...
+2026-08-16 23:19:59,701 [ERROR] Voice loop error: 
+2026-08-16 23:19:59,878 [INFO] Listening...
+2026-08-16 23:20:02,185 [INFO] Transcribing...
+2026-08-16 23:20:02,583 [ERROR] Voice loop error: 
+2026-08-16 23:20:02,761 [INFO] Listening...
+2026-08-16 23:20:06,226 [INFO] Transcribing...
+2026-08-16 23:20:06,956 [ERROR] Voice loop error: 
+2026-08-16 23:20:07,130 [INFO] Listening...
+2026-08-16 23:20:09,256 [INFO] Transcribing...
+2026-08-16 23:20:09,694 [ERROR] Voice loop error: 
+2026-08-16 23:20:09,859 [INFO] Listening...
+2026-08-16 23:20:12,120 [INFO] Transcribing...
+2026-08-16 23:20:12,724 [ERROR] Voice loop error: 
+2026-08-16 23:20:12,913 [INFO] Listening...
+2026-08-16 23:20:16,891 [INFO] Transcribing...
+2026-08-16 23:20:17,933 [ERROR] Voice loop error: 
+2026-08-16 23:20:18,204 [INFO] Listening...
+2026-08-16 23:20:20,583 [INFO] Transcribing...
+2026-08-16 23:20:21,028 [ERROR] Voice loop error: 
+2026-08-16 23:20:21,280 [INFO] Listening...
+2026-08-16 23:20:25,293 [INFO] Transcribing...
+2026-08-16 23:20:25,924 [ERROR] Voice loop error: 
+2026-08-16 23:20:26,269 [INFO] Listening...
+2026-08-16 23:20:30,828 [INFO] Transcribing...
+2026-08-16 23:20:31,539 [ERROR] Voice loop error: 
+2026-08-16 23:20:31,820 [INFO] Listening...
+2026-08-16 23:20:34,586 [INFO] Transcribing...
+2026-08-16 23:20:35,091 [ERROR] Voice loop error: 
+2026-08-16 23:20:35,342 [INFO] Listening...
+2026-08-16 23:20:43,879 [INFO] Transcribing...
+2026-08-16 23:20:44,973 [ERROR] Voice loop error: 
+2026-08-16 23:20:45,188 [INFO] Listening...
+2026-08-16 23:20:47,825 [INFO] Transcribing...
+2026-08-16 23:20:48,268 [ERROR] Voice loop error: 
+2026-08-16 23:20:48,470 [INFO] Listening...
+2026-08-16 23:20:55,979 [INFO] Transcribing...
+2026-08-16 23:20:56,814 [ERROR] Voice loop error: 
+2026-08-16 23:20:56,988 [INFO] Listening...
+2026-08-16 23:21:05,929 [INFO] Transcribing...
+2026-08-16 23:21:07,042 [ERROR] Voice loop error: 
+2026-08-16 23:21:07,206 [INFO] Listening...
+2026-08-16 23:21:13,323 [INFO] Transcribing...
+2026-08-16 23:21:13,900 [INFO] Transcribed text: turn on tv
+2026-08-16 23:21:13,901 [INFO] Sending to Qwen: turn on tv
+2026-08-16 23:21:23,670 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:21:23,672 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "tv", "value": null}
+  ],
+  "response_text": "The TV is on."
+}
+2026-08-16 23:21:23,673 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The TV is on.'}
+2026-08-16 23:21:23,674 [INFO] End-to-end latency: 16.63s
+2026-08-16 23:21:23,674 [INFO] State updated: tv -> True
+2026-08-16 23:21:23,677 [INFO] Speaking: The TV is on.
+2026-08-16 23:21:23,794 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 23:21:23,795 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\.venv\Lib\site-packages\comtypes\gen'
+2026-08-16 23:21:23,905 [INFO] Could not import comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4: Typelib different than module
+2026-08-16 23:21:23,909 [INFO] # Generating comtypes.gen._C866CA3A_32F7_11D2_9602_00C04F8EE628_0_5_4
+2026-08-16 23:21:23,979 [INFO] # Generating comtypes.gen.SpeechLib
+2026-08-16 23:21:26,770 [INFO] Listening...
+2026-08-16 23:21:30,290 [INFO] Transcribing...
+2026-08-16 23:21:30,951 [INFO] Transcribed text: turn on kitchen
+2026-08-16 23:21:30,951 [INFO] Sending to Qwen: turn on kitchen
+2026-08-16 23:21:33,094 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:21:33,095 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light", "value": null}
+  ],
+  "response_text": "The kitchen lights are on."
+}
+2026-08-16 23:21:33,095 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}], 'response_text': 'The kitchen lights are on.'}
+2026-08-16 23:21:33,095 [INFO] End-to-end latency: 6.72s
+2026-08-16 23:21:33,096 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:21:33,100 [INFO] Speaking: The kitchen lights are on.
+2026-08-16 23:21:35,561 [INFO] Listening...
+2026-08-16 23:21:52,848 [INFO] === Assistant session started: 2026-08-16T23:21:52.848398 ===
+2026-08-16 23:21:53,452 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 23:21:54,791 [INFO] Listening...
+2026-08-16 23:21:56,989 [INFO] Transcribing...
+2026-08-16 23:21:57,444 [ERROR] Voice loop error: 
+2026-08-16 23:21:57,605 [INFO] Listening...
+2026-08-16 23:22:00,608 [INFO] Transcribing...
+2026-08-16 23:22:01,284 [INFO] Transcribed text: and kitchen turn on tv
+2026-08-16 23:22:01,285 [INFO] Sending to Qwen: and kitchen turn on tv
+2026-08-16 23:22:04,312 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:22:04,313 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light", "value": null},
+    {"action": "turn_on", "target": "tv", "value": null}
+  ],
+  "response_text": "The kitchen lights and TV are on."
+}
+2026-08-16 23:22:04,313 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}, {'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The kitchen lights and TV are on.'}
+2026-08-16 23:22:04,313 [INFO] End-to-end latency: 6.87s
+2026-08-16 23:22:04,314 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:22:04,314 [INFO] State updated: tv -> True
+2026-08-16 23:22:04,315 [INFO] Speaking: The kitchen lights and TV are on.
+2026-08-16 23:22:04,386 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 23:22:04,386 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\.venv\Lib\site-packages\comtypes\gen'
+2026-08-16 23:22:07,502 [INFO] Listening...
+2026-08-16 23:22:10,688 [INFO] Transcribing...
+2026-08-16 23:22:11,103 [ERROR] Voice loop error: 
+2026-08-16 23:22:11,272 [INFO] Listening...
+2026-08-16 23:22:13,926 [INFO] Transcribing...
+2026-08-16 23:22:14,323 [ERROR] Voice loop error: 
+2026-08-16 23:22:14,487 [INFO] Listening...
+2026-08-16 23:22:17,460 [INFO] Transcribing...
+2026-08-16 23:22:18,026 [ERROR] Voice loop error: 
+2026-08-16 23:22:18,190 [INFO] Listening...
+2026-08-16 23:22:21,423 [INFO] Transcribing...
+2026-08-16 23:22:22,153 [ERROR] Voice loop error: 
+2026-08-16 23:22:22,313 [INFO] Listening...
+2026-08-16 23:22:31,424 [INFO] Transcribing...
+2026-08-16 23:22:32,474 [ERROR] Voice loop error: 
+2026-08-16 23:22:32,631 [INFO] Listening...
+2026-08-16 23:22:41,047 [INFO] Transcribing...
+2026-08-16 23:22:42,147 [INFO] Transcribed text: change thermostat
+2026-08-16 23:22:42,147 [INFO] Sending to Qwen: change thermostat
+2026-08-16 23:22:44,134 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:22:44,134 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "set_temperature", "target": "thermostat", "value": null}
+  ],
+  "response_text": "The thermostat has been set to the current temperature."
+}
+2026-08-16 23:22:44,135 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': None}], 'response_text': 'The thermostat has been set to the current temperature.'}
+2026-08-16 23:22:44,135 [INFO] End-to-end latency: 11.66s
+2026-08-16 23:22:44,135 [WARNING] Unhandled action/value combo: action='set_temperature' target='thermostat' value=None
+2026-08-16 23:22:44,136 [INFO] Speaking: The thermostat has been set to the current temperature.
+2026-08-16 23:22:47,728 [INFO] Listening...
+2026-08-16 23:22:52,594 [INFO] Transcribing...
+2026-08-16 23:22:53,174 [INFO] Transcribed text: change temperature
+2026-08-16 23:22:53,176 [INFO] Sending to Qwen: change temperature
+2026-08-16 23:22:55,104 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:22:55,105 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "set_temperature", "target": "thermostat", "value": null}
+  ],
+  "response_text": "The temperature has been changed."
+}
+2026-08-16 23:22:55,105 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': None}], 'response_text': 'The temperature has been changed.'}
+2026-08-16 23:22:55,105 [INFO] End-to-end latency: 7.78s
+2026-08-16 23:22:55,106 [WARNING] Unhandled action/value combo: action='set_temperature' target='thermostat' value=None
+2026-08-16 23:22:55,106 [INFO] Speaking: The temperature has been changed.
+2026-08-16 23:22:57,900 [INFO] Listening...
+2026-08-16 23:22:59,698 [INFO] Transcribing...
+2026-08-16 23:23:00,122 [INFO] Transcribed text: 25
+2026-08-16 23:23:00,123 [INFO] Sending to Qwen: 25
+2026-08-16 23:23:02,346 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:23:02,346 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "set_temperature", "target": "thermostat", "value": 25}
+  ],
+  "response_text": "The thermostat has been set to 25 degrees."
+}
+2026-08-16 23:23:02,347 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': 25.0}], 'response_text': 'The thermostat has been set to 25 degrees.'}
+2026-08-16 23:23:02,347 [INFO] End-to-end latency: 4.80s
+2026-08-16 23:23:02,347 [INFO] State updated: thermostat -> 25.0
+2026-08-16 23:23:02,349 [INFO] Speaking: The thermostat has been set to 25 degrees.
+2026-08-16 23:23:06,231 [INFO] Listening...
+2026-08-16 23:23:09,260 [INFO] Transcribing...
+2026-08-16 23:23:09,863 [ERROR] Voice loop error: 
+2026-08-16 23:23:10,064 [INFO] Listening...
+2026-08-16 23:23:58,498 [INFO] === Assistant session started: 2026-08-16T23:23:58.498488 ===
+2026-08-16 23:23:59,089 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 23:24:00,423 [INFO] Listening...
+2026-08-16 23:24:02,308 [INFO] Transcribing...
+2026-08-16 23:24:02,875 [ERROR] Voice loop error: 
+2026-08-16 23:24:03,043 [INFO] Listening...
+2026-08-16 23:24:08,232 [INFO] Transcribing...
+2026-08-16 23:24:09,202 [INFO] Transcribed text: thermo to 25
+2026-08-16 23:24:09,203 [INFO] Sending to Qwen: thermo to 25
+2026-08-16 23:24:11,326 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:24:11,327 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "set_temperature", "target": "thermostat", "value": 25}
+  ],
+  "response_text": "The thermostat has been set to 25 degrees."
+}
+2026-08-16 23:24:11,327 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': 25.0}], 'response_text': 'The thermostat has been set to 25 degrees.'}
+2026-08-16 23:24:11,327 [INFO] End-to-end latency: 8.45s
+2026-08-16 23:24:11,328 [INFO] State updated: thermostat -> 25.0
+2026-08-16 23:24:11,330 [INFO] Speaking: The thermostat has been set to 25 degrees.
+2026-08-16 23:24:11,387 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 23:24:11,387 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\.venv\Lib\site-packages\comtypes\gen'
+2026-08-16 23:24:15,335 [INFO] Listening...
+2026-08-16 23:24:26,143 [INFO] Transcribing...
+2026-08-16 23:24:27,136 [ERROR] Voice loop error: 
+2026-08-16 23:24:27,327 [INFO] Listening...
+2026-08-16 23:24:30,141 [INFO] Transcribing...
+2026-08-16 23:24:30,586 [ERROR] Voice loop error: 
+2026-08-16 23:24:30,746 [INFO] Listening...
+2026-08-16 23:24:34,259 [INFO] Transcribing...
+2026-08-16 23:24:34,866 [INFO] Transcribed text: open kitchen
+2026-08-16 23:24:34,866 [INFO] Sending to Qwen: open kitchen
+2026-08-16 23:24:36,828 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:24:36,829 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light", "value": null}
+  ],
+  "response_text": "The kitchen lights have been turned on."
+}
+2026-08-16 23:24:36,829 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}], 'response_text': 'The kitchen lights have been turned on.'}
+2026-08-16 23:24:36,830 [INFO] End-to-end latency: 6.24s
+2026-08-16 23:24:36,830 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:24:36,831 [INFO] Speaking: The kitchen lights have been turned on.
+2026-08-16 23:24:39,610 [INFO] Listening...
+2026-08-16 23:24:41,987 [INFO] Transcribing...
+2026-08-16 23:24:42,822 [INFO] Transcribed text: unlock door and open tv
+2026-08-16 23:24:42,822 [INFO] Sending to Qwen: unlock door and open tv
+2026-08-16 23:24:45,639 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:24:45,640 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "unlock", "target": "front_door_lock", "value": null},
+    {"action": "turn_on", "target": "tv", "value": null}
+  ],
+  "response_text": "The door is now unlocked, and the TV is on."
+}
+2026-08-16 23:24:45,640 [INFO] Parsed actions: {'actions': [{'action': 'unlock', 'target': 'front_door_lock', 'value': None}, {'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The door is now unlocked, and the TV is on.'}
+2026-08-16 23:24:45,640 [INFO] End-to-end latency: 6.38s
+2026-08-16 23:24:45,640 [INFO] State updated: front_door_lock -> False
+2026-08-16 23:24:45,641 [INFO] State updated: tv -> True
+2026-08-16 23:24:45,642 [INFO] Speaking: The door is now unlocked, and the TV is on.
+2026-08-16 23:24:49,534 [INFO] Listening...
+2026-08-16 23:25:00,568 [INFO] Transcribing...
+2026-08-16 23:25:01,861 [ERROR] Voice loop error: 
+2026-08-16 23:25:02,064 [INFO] Listening...
+2026-08-16 23:25:04,878 [INFO] Transcribing...
+2026-08-16 23:25:05,389 [ERROR] Voice loop error: 
+2026-08-16 23:25:05,609 [INFO] Listening...
+2026-08-16 23:25:15,113 [INFO] Transcribing...
+2026-08-16 23:25:16,680 [ERROR] Voice loop error: 
+2026-08-16 23:25:16,868 [INFO] Listening...
+2026-08-16 23:25:24,304 [INFO] === Assistant session started: 2026-08-16T23:25:24.304007 ===
+2026-08-16 23:25:24,891 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 23:25:26,256 [INFO] Listening...
+2026-08-16 23:25:29,684 [INFO] Transcribing...
+2026-08-16 23:25:30,227 [ERROR] Voice loop error: 
+2026-08-16 23:25:30,385 [INFO] Listening...
+2026-08-16 23:25:32,161 [INFO] Transcribing...
+2026-08-16 23:25:32,583 [INFO] Transcribed text: kitchen
+2026-08-16 23:25:32,584 [INFO] Sending to Qwen: kitchen
+2026-08-16 23:25:34,478 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:25:34,479 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light", "value": null}
+  ],
+  "response_text": "Kitchen lights turned on."
+}
+2026-08-16 23:25:34,479 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}], 'response_text': 'Kitchen lights turned on.'}
+2026-08-16 23:25:34,479 [INFO] End-to-end latency: 4.25s
+2026-08-16 23:25:34,480 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:25:34,481 [INFO] Speaking: Kitchen lights turned on.
+2026-08-16 23:25:34,546 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 23:25:34,547 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\.venv\Lib\site-packages\comtypes\gen'
+2026-08-16 23:25:48,146 [INFO] === Assistant session started: 2026-08-16T23:25:48.146474 ===
+2026-08-16 23:25:48,796 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 23:25:50,172 [INFO] Listening...
+2026-08-16 23:25:53,797 [INFO] Transcribing...
+2026-08-16 23:25:54,283 [ERROR] Voice loop error: 
+2026-08-16 23:25:54,464 [INFO] Listening...
+2026-08-16 23:25:58,511 [INFO] Transcribing...
+2026-08-16 23:25:59,107 [INFO] Transcribed text: kitchen on tv
+2026-08-16 23:25:59,108 [INFO] Sending to Qwen: kitchen on tv
+2026-08-16 23:26:02,032 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:26:02,032 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light", "value": null},
+    {"action": "turn_on", "target": "tv", "value": null}
+  ],
+  "response_text": "The kitchen lights and TV are on."
+}
+2026-08-16 23:26:02,033 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}, {'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The kitchen lights and TV are on.'}
+2026-08-16 23:26:02,033 [INFO] End-to-end latency: 7.75s
+2026-08-16 23:26:02,033 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:26:02,034 [INFO] State updated: tv -> True
+2026-08-16 23:26:02,036 [INFO] Speaking: The kitchen lights and TV are on.
+2026-08-16 23:26:02,087 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 23:26:02,088 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\.venv\Lib\site-packages\comtypes\gen'
+2026-08-16 23:26:05,147 [INFO] Listening...
+2026-08-16 23:26:10,352 [INFO] Transcribing...
+2026-08-16 23:26:11,289 [INFO] Transcribed text: unlock door 10 to 25
+2026-08-16 23:26:11,290 [INFO] Sending to Qwen: unlock door 10 to 25
+2026-08-16 23:26:13,243 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:26:13,244 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "unlock", "target": "front_door_lock", "value": 25}
+  ],
+  "response_text": "The door has been unlocked."
+}
+2026-08-16 23:26:13,244 [INFO] Parsed actions: {'actions': [{'action': 'unlock', 'target': 'front_door_lock', 'value': 25.0}], 'response_text': 'The door has been unlocked.'}
+2026-08-16 23:26:13,244 [INFO] End-to-end latency: 8.49s
+2026-08-16 23:26:13,244 [INFO] State updated: front_door_lock -> False
+2026-08-16 23:26:13,247 [INFO] Speaking: The door has been unlocked.
+2026-08-16 23:26:15,638 [INFO] Listening...
+2026-08-16 23:26:26,392 [INFO] Transcribing...
+2026-08-16 23:26:27,522 [ERROR] Voice loop error: 
+2026-08-16 23:26:27,678 [INFO] Listening...
+2026-08-16 23:26:33,518 [INFO] Transcribing...
+2026-08-16 23:26:34,403 [INFO] Transcribed text: off kitchen on bedroom
+2026-08-16 23:26:34,404 [INFO] Sending to Qwen: off kitchen on bedroom
+2026-08-16 23:26:37,202 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:26:37,203 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_off", "target": "kitchen_light", "value": null},
+    {"action": "turn_off", "target": "bedroom_light", "value": null}
+  ],
+  "response_text": "Lights turned off in the kitchen and bedroom."
+}
+2026-08-16 23:26:37,203 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'kitchen_light', 'value': None}, {'action': 'turn_off', 'target': 'bedroom_light', 'value': None}], 'response_text': 'Lights turned off in the kitchen and bedroom.'}
+2026-08-16 23:26:37,203 [INFO] End-to-end latency: 9.68s
+2026-08-16 23:26:37,203 [INFO] State updated: kitchen_light -> False
+2026-08-16 23:26:37,204 [INFO] State updated: bedroom_light -> False
+2026-08-16 23:26:37,205 [INFO] Speaking: Lights turned off in the kitchen and bedroom.
+2026-08-16 23:26:40,474 [INFO] Listening...
+2026-08-16 23:26:43,128 [INFO] Transcribing...
+2026-08-16 23:26:43,827 [INFO] Transcribed text: keep on bedroom
+2026-08-16 23:26:43,828 [INFO] Sending to Qwen: keep on bedroom
+2026-08-16 23:26:45,703 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:26:45,704 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "bedroom_light", "value": null}
+  ],
+  "response_text": "The bedroom lights are on."
+}
+2026-08-16 23:26:45,704 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights are on.'}
+2026-08-16 23:26:45,704 [INFO] End-to-end latency: 5.61s
+2026-08-16 23:26:45,704 [INFO] State updated: bedroom_light -> True
+2026-08-16 23:26:45,705 [INFO] Speaking: The bedroom lights are on.
+2026-08-16 23:26:48,182 [INFO] Listening...
+2026-08-16 23:26:50,837 [INFO] Transcribing...
+2026-08-16 23:26:51,337 [INFO] Transcribed text: lock doors
+2026-08-16 23:26:51,337 [INFO] Sending to Qwen: lock doors
+2026-08-16 23:26:53,303 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:26:53,304 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "lock", "target": "front_door_lock", "value": null}
+  ],
+  "response_text": "The doors are now locked."
+}
+2026-08-16 23:26:53,304 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The doors are now locked.'}
+2026-08-16 23:26:53,305 [INFO] End-to-end latency: 5.48s
+2026-08-16 23:26:53,305 [INFO] State updated: front_door_lock -> True
+2026-08-16 23:26:53,307 [INFO] Speaking: The doors are now locked.
+2026-08-16 23:26:55,713 [INFO] Listening...
+2026-08-16 23:26:57,859 [INFO] Transcribing...
+2026-08-16 23:26:58,366 [INFO] Transcribed text: to 25
+2026-08-16 23:26:58,367 [INFO] Sending to Qwen: to 25
+2026-08-16 23:27:00,597 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:27:00,598 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "set_temperature", "target": "thermostat", "value": 25}
+  ],
+  "response_text": "The thermostat has been set to 25 degrees."
+}
+2026-08-16 23:27:00,598 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': 25.0}], 'response_text': 'The thermostat has been set to 25 degrees.'}
+2026-08-16 23:27:00,598 [INFO] End-to-end latency: 5.25s
+2026-08-16 23:27:00,599 [INFO] State updated: thermostat -> 25.0
+2026-08-16 23:27:00,602 [INFO] Speaking: The thermostat has been set to 25 degrees.
+2026-08-16 23:27:04,493 [INFO] Listening...
+2026-08-16 23:27:08,121 [INFO] Transcribing...
+2026-08-16 23:27:08,851 [ERROR] Voice loop error: 
+2026-08-16 23:27:09,070 [INFO] Listening...
+2026-08-16 23:28:30,681 [INFO] === Assistant session started: 2026-08-16T23:28:30.681591 ===
+2026-08-16 23:28:31,275 [INFO] Calibrating microphone for ambient noise...
+2026-08-16 23:28:32,632 [INFO] Listening...
+2026-08-16 23:28:34,778 [INFO] Transcribing...
+2026-08-16 23:28:35,253 [ERROR] Voice loop error: 
+2026-08-16 23:28:35,411 [INFO] Listening...
+2026-08-16 23:28:37,467 [INFO] Transcribing...
+2026-08-16 23:28:37,907 [ERROR] Voice loop error: 
+2026-08-16 23:28:38,070 [INFO] Listening...
+2026-08-16 23:28:41,565 [INFO] Transcribing...
+2026-08-16 23:28:41,988 [ERROR] Voice loop error: 
+2026-08-16 23:28:42,169 [INFO] Listening...
+2026-08-16 23:28:47,101 [INFO] Transcribing...
+2026-08-16 23:28:47,945 [ERROR] Voice loop error: 
+2026-08-16 23:28:48,117 [INFO] Listening...
+2026-08-16 23:28:50,631 [INFO] Transcribing...
+2026-08-16 23:28:51,135 [ERROR] Voice loop error: 
+2026-08-16 23:28:51,344 [INFO] Listening...
+2026-08-16 23:28:55,088 [INFO] Transcribing...
+2026-08-16 23:28:55,743 [INFO] Transcribed text: i see i see
+2026-08-16 23:28:55,743 [INFO] Sending to Qwen: i see i see
+2026-08-16 23:28:57,107 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:28:57,107 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Sorry, I didn't catch a command I can act on."
+}
+2026-08-16 23:28:57,107 [INFO] Parsed actions: {'actions': [], 'response_text': "Sorry, I didn't catch a command I can act on."}
+2026-08-16 23:28:57,108 [INFO] End-to-end latency: 5.97s
+2026-08-16 23:28:57,109 [INFO] Speaking: Sorry, I didn't catch a command I can act on.
+2026-08-16 23:28:57,165 [INFO] Imported existing <module 'comtypes.gen' from 'C:\\Users\\louis\\Downloads\\VSCODE\\.venv\\Lib\\site-packages\\comtypes\\gen\\__init__.py'>
+2026-08-16 23:28:57,166 [INFO] Using writeable comtypes cache directory: 'C:\Users\louis\Downloads\VSCODE\.venv\Lib\site-packages\comtypes\gen'
+2026-08-16 23:28:59,726 [INFO] Voice loop paused by user.
+2026-08-16 23:29:31,219 [INFO] Voice loop resumed by user.
+2026-08-16 23:29:31,745 [INFO] Listening...
+2026-08-16 23:29:33,870 [INFO] Transcribing...
+2026-08-16 23:29:34,402 [INFO] Transcribed text: tv and kitchen
+2026-08-16 23:29:34,403 [INFO] Sending to Qwen: tv and kitchen
+2026-08-16 23:29:36,854 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:29:36,854 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light"},
+    {"action": "turn_on", "target": "tv"}
+  ],
+  "response_text": "The kitchen lights and TV are on."
+}
+2026-08-16 23:29:36,854 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}, {'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The kitchen lights and TV are on.'}
+2026-08-16 23:29:36,855 [INFO] End-to-end latency: 5.53s
+2026-08-16 23:29:36,855 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:29:36,856 [INFO] State updated: tv -> True
+2026-08-16 23:29:36,856 [INFO] Speaking: The kitchen lights and TV are on.
+2026-08-16 23:29:39,848 [INFO] Listening...
+2026-08-16 23:29:41,283 [INFO] Voice loop paused by user.
+2026-08-16 23:29:45,433 [INFO] Transcribing...
+2026-08-16 23:29:46,242 [ERROR] Voice loop error: 
+2026-08-16 23:31:40,388 [INFO] Voice loop resumed by user.
+2026-08-16 23:31:40,779 [INFO] Listening...
+2026-08-16 23:31:43,153 [INFO] Transcribing...
+2026-08-16 23:31:43,761 [INFO] Transcribed text: off on bedroom
+2026-08-16 23:31:43,761 [INFO] Sending to Qwen: off on bedroom
+2026-08-16 23:31:45,656 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:31:45,656 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_off", "target": "bedroom_light", "value": null}
+  ],
+  "response_text": "The bedroom lights have been turned off."
+}
+2026-08-16 23:31:45,656 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned off.'}
+2026-08-16 23:31:45,656 [INFO] End-to-end latency: 5.25s
+2026-08-16 23:31:45,657 [INFO] State updated: bedroom_light -> False
+2026-08-16 23:31:45,657 [INFO] Speaking: The bedroom lights have been turned off.
+2026-08-16 23:31:48,541 [INFO] Listening...
+2026-08-16 23:31:50,315 [INFO] Transcribing...
+2026-08-16 23:31:50,775 [INFO] Transcribed text: turn off
+2026-08-16 23:31:50,775 [INFO] Sending to Qwen: turn off
+2026-08-16 23:31:56,299 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:31:56,300 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_off", "target": "living_room_light", "value": null},
+    {"action": "turn_off", "target": "kitchen_light", "value": null},
+    {"action": "turn_off", "target": "bedroom_light", "value": null},
+    {"action": "turn_off", "target": "thermostat", "value": null},
+    {"action": "turn_off", "target": "front_door_lock", "value": null},
+    {"action": "turn_off", "target": "tv", "value": null}
+  ],
+  "response_text": "Lights and thermostat turned off."
+}
+2026-08-16 23:31:56,300 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'living_room_light', 'value': None}, {'action': 'turn_off', 'target': 'kitchen_light', 'value': None}, {'action': 'turn_off', 'target': 'bedroom_light', 'value': None}, {'action': 'turn_off', 'target': 'thermostat', 'value': None}, {'action': 'unlock', 'target': 'front_door_lock', 'value': None}, {'action': 'turn_off', 'target': 'tv', 'value': None}], 'response_text': 'Lights and thermostat turned off.'}
+2026-08-16 23:31:56,300 [INFO] End-to-end latency: 8.11s
+2026-08-16 23:31:56,301 [INFO] State updated: living_room_light -> False
+2026-08-16 23:31:56,301 [INFO] State updated: kitchen_light -> False
+2026-08-16 23:31:56,302 [INFO] State updated: bedroom_light -> False
+2026-08-16 23:31:56,303 [INFO] State updated: thermostat -> False
+2026-08-16 23:31:56,303 [INFO] State updated: front_door_lock -> False
+2026-08-16 23:31:56,304 [INFO] State updated: tv -> False
+2026-08-16 23:31:56,305 [INFO] Speaking: Lights and thermostat turned off.
+2026-08-16 23:31:59,174 [INFO] Listening...
+2026-08-16 23:32:01,920 [INFO] Transcribing...
+2026-08-16 23:32:02,541 [INFO] Transcribed text: kitchen off
+2026-08-16 23:32:02,542 [INFO] Sending to Qwen: kitchen off
+2026-08-16 23:32:04,370 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:32:04,370 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_off", "target": "kitchen_light", "value": null}
+  ],
+  "response_text": "The kitchen lights are off."
+}
+2026-08-16 23:32:04,370 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'kitchen_light', 'value': None}], 'response_text': 'The kitchen lights are off.'}
+2026-08-16 23:32:04,371 [INFO] End-to-end latency: 5.58s
+2026-08-16 23:32:04,371 [INFO] State updated: kitchen_light -> False
+2026-08-16 23:32:04,372 [INFO] Speaking: The kitchen lights are off.
+2026-08-16 23:32:06,745 [INFO] Listening...
+2026-08-16 23:32:08,661 [INFO] Transcribing...
+2026-08-16 23:32:09,130 [INFO] Transcribed text: on tv
+2026-08-16 23:32:09,130 [INFO] Sending to Qwen: on tv
+2026-08-16 23:32:10,366 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:32:10,366 [INFO] Raw Qwen output: {
+  "actions": [],
+  "response_text": "Sorry, I didn't catch a command I can act on."
+}
+2026-08-16 23:32:10,367 [INFO] Parsed actions: {'actions': [], 'response_text': "Sorry, I didn't catch a command I can act on."}
+2026-08-16 23:32:10,367 [INFO] End-to-end latency: 3.98s
+2026-08-16 23:32:10,367 [INFO] Speaking: Sorry, I didn't catch a command I can act on.
+2026-08-16 23:32:14,336 [INFO] Listening...
+2026-08-16 23:32:19,803 [INFO] Transcribing...
+2026-08-16 23:32:20,224 [INFO] Transcribed text: bedroom and
+2026-08-16 23:32:20,224 [INFO] Sending to Qwen: bedroom and
+2026-08-16 23:32:22,108 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:32:22,109 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "bedroom_light", "value": null}
+  ],
+  "response_text": "The bedroom lights have been turned on."
+}
+2026-08-16 23:32:22,109 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned on.'}
+2026-08-16 23:32:22,109 [INFO] End-to-end latency: 8.16s
+2026-08-16 23:32:22,110 [INFO] State updated: bedroom_light -> True
+2026-08-16 23:32:22,110 [INFO] Speaking: The bedroom lights have been turned on.
+2026-08-16 23:32:24,977 [INFO] Listening...
+2026-08-16 23:32:27,053 [INFO] Transcribing...
+2026-08-16 23:32:27,566 [INFO] Transcribed text: lock doors
+2026-08-16 23:32:27,566 [INFO] Sending to Qwen: lock doors
+2026-08-16 23:32:29,348 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:32:29,349 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "lock", "target": "front_door_lock", "value": null}
+  ],
+  "response_text": "The doors are now locked."
+}
+2026-08-16 23:32:29,349 [INFO] Parsed actions: {'actions': [{'action': 'lock', 'target': 'front_door_lock', 'value': None}], 'response_text': 'The doors are now locked.'}
+2026-08-16 23:32:29,349 [INFO] End-to-end latency: 4.72s
+2026-08-16 23:32:29,350 [INFO] State updated: front_door_lock -> True
+2026-08-16 23:32:29,351 [INFO] Speaking: The doors are now locked.
+2026-08-16 23:32:31,716 [INFO] Listening...
+2026-08-16 23:32:38,021 [INFO] Transcribing...
+2026-08-16 23:32:38,778 [INFO] Transcribed text: kitchen on tv on
+2026-08-16 23:32:38,779 [INFO] Sending to Qwen: kitchen on tv on
+2026-08-16 23:32:41,192 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:32:41,192 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light"},
+    {"action": "turn_on", "target": "tv"}
+  ],
+  "response_text": "The kitchen lights and TV are on."
+}
+2026-08-16 23:32:41,193 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}, {'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The kitchen lights and TV are on.'}
+2026-08-16 23:32:41,193 [INFO] End-to-end latency: 9.82s
+2026-08-16 23:32:41,193 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:32:41,194 [INFO] State updated: tv -> True
+2026-08-16 23:32:41,194 [INFO] Speaking: The kitchen lights and TV are on.
+2026-08-16 23:32:44,172 [INFO] Listening...
+2026-08-16 23:32:50,011 [INFO] Transcribing...
+2026-08-16 23:32:50,503 [ERROR] Voice loop error: 
+2026-08-16 23:32:50,671 [INFO] Listening...
+2026-08-16 23:32:52,956 [INFO] Transcribing...
+2026-08-16 23:32:53,402 [ERROR] Voice loop error: 
+2026-08-16 23:32:53,561 [INFO] Listening...
+2026-08-16 23:32:56,605 [INFO] Transcribing...
+2026-08-16 23:32:57,044 [ERROR] Voice loop error: 
+2026-08-16 23:32:57,207 [INFO] Listening...
+2026-08-16 23:33:02,392 [INFO] Transcribing...
+2026-08-16 23:33:02,860 [INFO] Transcribed text: bedroom off
+2026-08-16 23:33:02,860 [INFO] Sending to Qwen: bedroom off
+2026-08-16 23:33:04,836 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:33:04,837 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_off", "target": "bedroom_light", "value": null}
+  ],
+  "response_text": "The bedroom lights have been turned off."
+}
+2026-08-16 23:33:04,837 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned off.'}
+2026-08-16 23:33:04,837 [INFO] End-to-end latency: 7.79s
+2026-08-16 23:33:04,838 [INFO] State updated: bedroom_light -> False
+2026-08-16 23:33:04,838 [INFO] Speaking: The bedroom lights have been turned off.
+2026-08-16 23:33:07,719 [INFO] Listening...
+2026-08-16 23:33:10,385 [INFO] Voice loop paused by user.
+2026-08-16 23:33:10,833 [INFO] Transcribing...
+2026-08-16 23:33:11,149 [ERROR] Voice loop error: 
+2026-08-16 23:34:42,811 [INFO] Voice loop resumed by user.
+2026-08-16 23:34:43,277 [INFO] Listening...
+2026-08-16 23:34:45,636 [INFO] Transcribing...
+2026-08-16 23:34:46,244 [INFO] Transcribed text: tv and kitchen
+2026-08-16 23:34:46,245 [INFO] Sending to Qwen: tv and kitchen
+2026-08-16 23:34:48,711 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:34:48,712 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "kitchen_light"},
+    {"action": "turn_on", "target": "tv"}
+  ],
+  "response_text": "The kitchen lights and TV are on."
+}
+2026-08-16 23:34:48,712 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'kitchen_light', 'value': None}, {'action': 'turn_on', 'target': 'tv', 'value': None}], 'response_text': 'The kitchen lights and TV are on.'}
+2026-08-16 23:34:48,712 [INFO] End-to-end latency: 5.86s
+2026-08-16 23:34:48,712 [INFO] State updated: kitchen_light -> True
+2026-08-16 23:34:48,713 [INFO] State updated: tv -> True
+2026-08-16 23:34:48,714 [INFO] Speaking: The kitchen lights and TV are on.
+2026-08-16 23:34:51,708 [INFO] Listening...
+2026-08-16 23:34:53,905 [INFO] Transcribing...
+2026-08-16 23:34:54,039 [INFO] Voice loop paused by user.
+2026-08-16 23:34:54,226 [ERROR] Voice loop error: 
+2026-08-16 23:36:49,269 [INFO] Voice loop resumed by user.
+2026-08-16 23:36:49,835 [INFO] Listening...
+2026-08-16 23:36:51,793 [INFO] Transcribing...
+2026-08-16 23:36:52,316 [INFO] Transcribed text: bedroom on
+2026-08-16 23:36:52,316 [INFO] Sending to Qwen: bedroom on
+2026-08-16 23:36:54,276 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:36:54,277 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_on", "target": "bedroom_light", "value": null}
+  ],
+  "response_text": "The bedroom lights are on."
+}
+2026-08-16 23:36:54,277 [INFO] Parsed actions: {'actions': [{'action': 'turn_on', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights are on.'}
+2026-08-16 23:36:54,277 [INFO] End-to-end latency: 4.88s
+2026-08-16 23:36:54,278 [INFO] State updated: bedroom_light -> True
+2026-08-16 23:36:54,278 [INFO] Speaking: The bedroom lights are on.
+2026-08-16 23:36:56,776 [INFO] Listening...
+2026-08-16 23:37:02,196 [INFO] Transcribing...
+2026-08-16 23:37:02,794 [INFO] Transcribed text: bedroom off
+2026-08-16 23:37:02,795 [INFO] Sending to Qwen: bedroom off
+2026-08-16 23:37:04,824 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:37:04,824 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "turn_off", "target": "bedroom_light", "value": null}
+  ],
+  "response_text": "The bedroom lights have been turned off."
+}
+2026-08-16 23:37:04,825 [INFO] Parsed actions: {'actions': [{'action': 'turn_off', 'target': 'bedroom_light', 'value': None}], 'response_text': 'The bedroom lights have been turned off.'}
+2026-08-16 23:37:04,825 [INFO] End-to-end latency: 8.40s
+2026-08-16 23:37:04,825 [INFO] State updated: bedroom_light -> False
+2026-08-16 23:37:04,826 [INFO] Speaking: The bedroom lights have been turned off.
+2026-08-16 23:37:07,364 [INFO] Voice loop paused by user.
+2026-08-16 23:37:49,556 [INFO] Voice loop resumed by user.
+2026-08-16 23:37:50,129 [INFO] Listening...
+2026-08-16 23:37:53,157 [INFO] Transcribing...
+2026-08-16 23:37:53,849 [INFO] Transcribed text: picture to 25°
+2026-08-16 23:37:53,850 [INFO] Sending to Qwen: picture to 25°
+2026-08-16 23:37:55,963 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:37:55,963 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "set_temperature", "target": "thermostat", "value": 25}
+  ],
+  "response_text": "The thermostat has been set to 25 degrees."
+}
+2026-08-16 23:37:55,964 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': 25.0}], 'response_text': 'The thermostat has been set to 25 degrees.'}
+2026-08-16 23:37:55,964 [INFO] End-to-end latency: 6.25s
+2026-08-16 23:37:55,964 [INFO] State updated: thermostat -> 25.0
+2026-08-16 23:37:55,965 [INFO] Speaking: The thermostat has been set to 25 degrees.
+2026-08-16 23:37:59,741 [INFO] Listening...
+2026-08-16 23:38:02,976 [INFO] Transcribing...
+2026-08-16 23:38:03,752 [INFO] Transcribed text: temperature to
+2026-08-16 23:38:03,752 [INFO] Sending to Qwen: temperature to
+2026-08-16 23:38:05,733 [INFO] HTTP Request: POST http://127.0.0.1:11434/api/chat "HTTP/1.1 200 OK"
+2026-08-16 23:38:05,734 [INFO] Raw Qwen output: {
+  "actions": [
+    {"action": "set_temperature", "target": "thermostat", "value": null}
+  ],
+  "response_text": "The thermostat has been set to the new temperature."
+}
+2026-08-16 23:38:05,734 [INFO] Parsed actions: {'actions': [{'action': 'set_temperature', 'target': 'thermostat', 'value': None}], 'response_text': 'The thermostat has been set to the new temperature.'}
+2026-08-16 23:38:05,734 [INFO] End-to-end latency: 6.38s
+2026-08-16 23:38:05,734 [WARNING] Unhandled action/value combo: action='set_temperature' target='thermostat' value=None
+2026-08-16 23:38:05,735 [INFO] Speaking: The thermostat has been set to the new temperature.
+2026-08-16 23:38:08,979 [INFO] Voice loop paused by user.
+2026-08-16 23:38:09,171 [INFO] Listening...
+2026-08-16 23:38:12,387 [INFO] Transcribing...
+2026-08-16 23:38:12,987 [ERROR] Voice loop error: 
