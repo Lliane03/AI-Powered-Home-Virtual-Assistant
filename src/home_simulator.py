@@ -322,8 +322,10 @@ class HomeSimulator:
             x2, y2 = cx + math.cos(rad) * (r + 2), cy - math.sin(rad) * (r + 2)
             canvas.create_line(x1, y1, x2, y2, fill=COLOR_CYAN_DIM, width=1)
         canvas.create_oval(cx - r, cy - r, cx + r, cy + r, outline=COLOR_PANEL_EDGE, width=2)
-        clamped = max(10, min(30, temp))
-        pct = (clamped - 10) / 20.0
+        # Range matches ai_engine.py's set_temperature validator (7-35C) -
+        # keep these two in sync if the range ever changes again.
+        clamped = max(7, min(35, temp))
+        pct = (clamped - 7) / 28.0
         extent = 270 * pct
         canvas.create_arc(cx - r, cy - r, cx + r, cy + r, start=225, extent=-extent,
                            style="arc", outline=COLOR_CYAN, width=4)

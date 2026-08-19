@@ -18,6 +18,11 @@ logger = logging.getLogger("assistant")
 
 MODEL_NAME = "qwen2.5:1.5b"
 
+# Thermostat's supported target-temperature range, in Celsius. Keep in sync
+# with home_simulator.py's dial-drawing clamp (_draw_thermostat).
+THERMOSTAT_MIN_C = 7.0
+THERMOSTAT_MAX_C = 35.0
+
 # ---------------------------------------------------------------------------
 # Supported devices / actions - keep this in sync with home_simulator.py
 # ---------------------------------------------------------------------------
@@ -116,17 +121,17 @@ class DeviceAction(BaseModel):
         # set_temperature had no range check at all (observed 2026-08-20:
         # "change the thermostat into 50°" was accepted and applied with
         # no complaint). home_simulator.py's own dial-drawing code already
-        # assumes a 10-30C range - it clamps the VISUAL arc to that range
-        # but never validates the underlying state value, so an absurd
-        # target temperature silently reaches the GUI as text ("50°") even
-        # though the dial itself maxes out. Enforcing the same 10-30 range
-        # here keeps the two files in agreement instead of only fixing the
-        # symptom in one place.
+        # clamps the VISUAL arc to a fixed range - it never validated the
+        # underlying state value, so an absurd target temperature silently
+        # reached the GUI as text ("50°") even though the dial maxed out.
+        # Reject here so both files agree on the same range instead of only
+        # fixing the symptom in one place. (Caller decides what to tell the
+        # user when this is raised - see _build_actions in parse_command.)
         if self.action == "set_temperature" and self.value is not None:
-            if not (10 <= self.value <= 30):
+            if not (THERMOSTAT_MIN_C <= self.value <= THERMOSTAT_MAX_C):
                 raise ValueError(
                     f"set_temperature value {self.value} is out of range "
-                    "(thermostat supports 10-30 degrees C)"
+                    f"(thermostat supports {THERMOSTAT_MIN_C:.0f}-{THERMOSTAT_MAX_C:.0f} degrees C)"
                 )
 
         return self
@@ -154,7 +159,7 @@ Rules:
 - Output ONLY valid JSON. No markdown, no code fences, no explanation.
 - A single command can map to multiple actions (e.g. "turn off the kitchen lights and set the thermostat to 22").
 - "value" is required for set_temperature (target temp), increase_temp / decrease_temp (degrees to change), and null for everything else.
-- set_temperature values must be between 10 and 30 (degrees C) - the thermostat cannot go outside that range.
+- set_temperature values must be between {THERMOSTAT_MIN_C:.0f} and {THERMOSTAT_MAX_C:.0f} (degrees C) - the thermostat cannot go outside that range.
 - "set_temperature", "increase_temp", and "decrease_temp" are ONLY valid with target "thermostat". Never use them on a light or the TV.
 - "lock" and "unlock" are ONLY valid with target "front_door_lock". The door is always locked/unlocked, never turned on/off:
   "lock the door" -> {{"action": "lock", "target": "front_door_lock", "value": null}}
@@ -177,11 +182,46 @@ def _extract_json(raw_text: str) -> dict:
     return json.loads(text[start : end + 1])
 
 
+def _build_actions(raw_actions: list) -> tuple[list, list]:
+    """
+    Validate each raw action dict independently rather than validating the
+    whole list at once. Previously, one invalid action (e.g. an out-of-range
+    thermostat value) raised a ValidationError for the ENTIRE response,
+    silently dropping every other valid action from the same command too
+    (e.g. "turn on the tv and set thermostat to 100" would lose the TV
+    action as collateral damage). Returns (valid_actions, warning_messages)
+    so the caller can keep the good actions and still tell the user what
+    was rejected and why.
+    """
+    valid = []
+    warnings = []
+    for raw in raw_actions:
+        try:
+            valid.append(DeviceAction.model_validate(raw))
+        except ValidationError as exc:
+            action = raw.get("action") if isinstance(raw, dict) else None
+            target = raw.get("target") if isinstance(raw, dict) else None
+            value = raw.get("value") if isinstance(raw, dict) else None
+            if action == "set_temperature" and target == "thermostat" and value is not None:
+                warnings.append(
+                    f"Sorry, {value:g} degrees is out of range. "
+                    f"You can only set the thermostat between "
+                    f"{THERMOSTAT_MIN_C:.0f} and {THERMOSTAT_MAX_C:.0f} degrees."
+                )
+            else:
+                logger.warning("Dropped invalid action %s: %s", raw, exc)
+    return valid, warnings
+
+
 def parse_command(transcribed_text: str) -> AssistantResponse:
     """
     Send transcribed_text to the local Qwen model via Ollama and return a
-    validated AssistantResponse. Raises ValueError on unrecoverable parse failure
-    (caller should catch this and fall back gracefully).
+    validated AssistantResponse. Raises ValueError on unrecoverable parse
+    failure - i.e. the model's output wasn't even parseable JSON at all
+    (caller should catch this and fall back gracefully). Individual invalid
+    actions within an otherwise-valid response are handled internally (see
+    _build_actions) rather than raised, so they don't take down the rest of
+    the command.
     """
     logger.info("Sending to Qwen: %s", transcribed_text)
 
@@ -199,11 +239,23 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
 
     try:
         data = _extract_json(raw_content)
-        response = AssistantResponse.model_validate(data)
-    except (json.JSONDecodeError, ValidationError, ValueError) as exc:
-        logger.error("Failed to parse/validate model output: %s", exc)
+    except (json.JSONDecodeError, ValueError) as exc:
+        logger.error("Failed to parse model output as JSON: %s", exc)
         raise ValueError(f"Could not parse a valid action from model output: {exc}") from exc
 
+    raw_actions = data.get("actions", [])
+    if not isinstance(raw_actions, list):
+        raw_actions = []
+
+    actions, warnings = _build_actions(raw_actions)
+
+    response_text = data.get("response_text") or ""
+    if warnings:
+        response_text = (response_text + " " if response_text else "") + " ".join(warnings)
+    if not actions and not response_text:
+        response_text = "Sorry, I didn't catch a command I can act on."
+
+    response = AssistantResponse(actions=actions, response_text=response_text)
     logger.info("Parsed actions: %s", response.model_dump())
     return response
 
@@ -218,7 +270,8 @@ if __name__ == "__main__":
         "Unlock the front door",
         "Turn on the front door",  # regression check: should normalize to lock, not stay turn_on
         "Turn off the thermostat",  # regression check: should be rejected, not silently applied
-        "Set the thermostat to 50 degrees",  # regression check: should be rejected (out of 10-30 range)
+        "Set the thermostat to 50 degrees",  # regression check: out-of-range -> warning, no crash
+        "Turn on the tv and set the thermostat to 100",  # regression check: TV action should survive even though the temp is rejected
     ]
     for cmd in test_commands:
         print("\n>>>", cmd)

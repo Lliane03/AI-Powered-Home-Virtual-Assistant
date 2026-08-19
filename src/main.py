@@ -92,7 +92,19 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: t
             # Broad catch is intentional here: STT timeouts, unrecognized speech,
             # and malformed model output should never crash the assistant loop.
             logger.error("Voice loop error: %s", exc)
-            simulator.root.after(0, simulator.set_status, "Sorry, I didn't catch that. Try again.")
+            fallback_msg = "Sorry, I didn't catch that. Try again."
+            simulator.root.after(0, simulator.set_status, fallback_msg)
+            try:
+                # Previously this only updated the status text - the user
+                # would see the message but never hear it, which is
+                # inconsistent with every successful command (which does
+                # get spoken). Speak it here too so silence/misheard input
+                # gets the same audible feedback as a real command.
+                pipeline.speak(fallback_msg)
+            except Exception as speak_exc:
+                # Don't let a TTS failure while handling an error mask the
+                # original error or crash the loop.
+                logger.error("Failed to speak fallback message: %s", speak_exc)
             if tracker._thread is not None and tracker._thread.is_alive():
                 # Failed/unrecognized attempts aren't real commands for
                 # metrics purposes - cancel rather than log, so
