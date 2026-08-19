@@ -18,6 +18,7 @@ from datetime import datetime
 
 from ai_engine import parse_command
 from home_simulator import HomeSimulator
+from monitor_resources import ResourceTracker
 from voice_pipeline import VoicePipeline
 
 # ---------------------------------------------------------------------------
@@ -46,6 +47,7 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: t
     touching the microphone until it's cleared again.
     """
     simulator.root.after(0, simulator.set_status, "Ready. Say a command...")
+    tracker = ResourceTracker()  # self-samples THIS process, no PID needed
 
     while True:
         if pause_event.is_set():
@@ -56,6 +58,13 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: t
         try:
             simulator.root.after(0, simulator.set_listening_active, True)
             start = time.time()
+            # Start resource sampling around the whole visible command
+            # cycle (mic capture through GUI update + speech), matching
+            # what the report table claims to measure. Self-samples THIS
+            # process via psutil.Process() - no PID lookup, no risk of
+            # accidentally tracking an idle launcher stub instead of the
+            # real interpreter.
+            tracker.start()
             transcribed = pipeline.listen()
             simulator.root.after(0, simulator.set_status, f'Heard: "{transcribed}"')
 
@@ -70,11 +79,25 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: t
 
             pipeline.speak(result.response_text)
 
+            # Label uses the real transcribed text so resource_log.csv rows
+            # always match what was actually said - no more mismatched
+            # labels between the log and the metrics table.
+            resource_row = tracker.stop(transcribed)
+            logger.info(
+                "Resource usage: peak_cpu=%.1f%% peak_ram=%.1fMB duration=%.1fs",
+                resource_row["peak_cpu_percent"], resource_row["peak_ram_mb"], resource_row["duration_s"],
+            )
+
         except Exception as exc:
             # Broad catch is intentional here: STT timeouts, unrecognized speech,
             # and malformed model output should never crash the assistant loop.
             logger.error("Voice loop error: %s", exc)
             simulator.root.after(0, simulator.set_status, "Sorry, I didn't catch that. Try again.")
+            if tracker._thread is not None and tracker._thread.is_alive():
+                # Failed/unrecognized attempts aren't real commands for
+                # metrics purposes - cancel rather than log, so
+                # resource_log.csv only ever contains completed commands.
+                tracker.cancel()
             continue
         finally:
             simulator.root.after(0, simulator.set_listening_active, False)

@@ -3,3 +3,4 @@ SpeechRecognition
 PyAudio
 pyttsx3
 pydantic
+psutil

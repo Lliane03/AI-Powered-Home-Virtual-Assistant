@@ -100,6 +100,35 @@ class DeviceAction(BaseModel):
                 "(lock/unlock only apply to 'front_door_lock')"
             )
 
+        # The thermostat's state is a float (a target temperature), not a
+        # boolean - it doesn't have an "on/off" concept in the schema or the
+        # GUI. Qwen occasionally still reaches for turn_on/turn_off on it
+        # (observed 2026-08-16 23:31:50: a bare "turn off" command produced
+        # a turn_off action against the thermostat alongside the lights).
+        # Reject rather than silently normalize, since there's no sensible
+        # "on" state to map it to.
+        if self.action in ("turn_on", "turn_off") and self.target == "thermostat":
+            raise ValueError(
+                f"'{self.action}' is not valid for target 'thermostat' "
+                "(thermostat has no on/off state - use set_temperature/increase_temp/decrease_temp)"
+            )
+
+        # set_temperature had no range check at all (observed 2026-08-20:
+        # "change the thermostat into 50°" was accepted and applied with
+        # no complaint). home_simulator.py's own dial-drawing code already
+        # assumes a 10-30C range - it clamps the VISUAL arc to that range
+        # but never validates the underlying state value, so an absurd
+        # target temperature silently reaches the GUI as text ("50°") even
+        # though the dial itself maxes out. Enforcing the same 10-30 range
+        # here keeps the two files in agreement instead of only fixing the
+        # symptom in one place.
+        if self.action == "set_temperature" and self.value is not None:
+            if not (10 <= self.value <= 30):
+                raise ValueError(
+                    f"set_temperature value {self.value} is out of range "
+                    "(thermostat supports 10-30 degrees C)"
+                )
+
         return self
 
 
@@ -125,6 +154,7 @@ Rules:
 - Output ONLY valid JSON. No markdown, no code fences, no explanation.
 - A single command can map to multiple actions (e.g. "turn off the kitchen lights and set the thermostat to 22").
 - "value" is required for set_temperature (target temp), increase_temp / decrease_temp (degrees to change), and null for everything else.
+- set_temperature values must be between 10 and 30 (degrees C) - the thermostat cannot go outside that range.
 - "set_temperature", "increase_temp", and "decrease_temp" are ONLY valid with target "thermostat". Never use them on a light or the TV.
 - "lock" and "unlock" are ONLY valid with target "front_door_lock". The door is always locked/unlocked, never turned on/off:
   "lock the door" -> {{"action": "lock", "target": "front_door_lock", "value": null}}
@@ -187,6 +217,8 @@ if __name__ == "__main__":
         "Lock the front door",
         "Unlock the front door",
         "Turn on the front door",  # regression check: should normalize to lock, not stay turn_on
+        "Turn off the thermostat",  # regression check: should be rejected, not silently applied
+        "Set the thermostat to 50 degrees",  # regression check: should be rejected (out of 10-30 range)
     ]
     for cmd in test_commands:
         print("\n>>>", cmd)
