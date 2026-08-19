@@ -81,7 +81,11 @@ COLOR_OFF = "#2B4149"           # inactive device stroke color
 FONT_FAMILY = "Consolas"        # monospace reads as "instrument panel"
 FONT_FAMILY_UI = "Segoe UI"
 
-MIN_CARD_W, MIN_CARD_H = 150, 140  # floor so cards stay legible when shrunk
+# Fallback size only, used before the window/canvas is first mapped by the
+# geometry manager (winfo_width()/height() report 1 until then). Once the
+# canvas has a real size, rendering always uses that real size instead -
+# never a floor larger than the actual pixels available, or content clips.
+FALLBACK_CARD_W, FALLBACK_CARD_H = 210, 170
 
 
 def _tracked(text: str, gap: str = " ") -> str:
@@ -105,7 +109,13 @@ class HomeSimulator:
         self.root.title("H.O.M.E. — Holographic Operations & Monitoring Engine")
         self.root.configure(bg=COLOR_BG)
         self.root.geometry("980x680")
-        self.root.minsize(760, 560)
+        # Lowered from 760x560 - that floor was taller/wider than the
+        # available space when running next to an editor window on a
+        # laptop screen, pushing part of the window off-screen with no
+        # way to reach it. This still keeps things legible while letting
+        # the window actually shrink to fit smaller/split screens.
+        self.root.minsize(620, 460)
+        self.root.resizable(True, True)
 
         self._build_ui()
         self.refresh_all()
@@ -123,7 +133,7 @@ class HomeSimulator:
         # (fixed-ish width), with a header spanning both and a status bar
         # spanning both, so everything reflows together on resize.
         self.root.columnconfigure(0, weight=1)
-        self.root.columnconfigure(1, weight=0, minsize=150)
+        self.root.columnconfigure(1, weight=0, minsize=120)
         self.root.rowconfigure(1, weight=1)
 
         # -- Header (spans full width) --------------------------------------
@@ -191,14 +201,16 @@ class HomeSimulator:
         for idx, device in enumerate(DEVICE_ORDER):
             row, col = divmod(idx, DEVICE_GRID_COLS)
             card_canvas = tk.Canvas(
-                grid, width=210, height=170, bg=COLOR_BG, highlightthickness=0
+                grid, width=FALLBACK_CARD_W, height=FALLBACK_CARD_H,
+                bg=COLOR_BG, highlightthickness=0,
             )
             card_canvas.grid(row=row, column=col, padx=8, pady=8, sticky="nsew")
             card_canvas.bind("<Configure>", lambda e, d=device: self._render_device(d))
             self.widgets[device] = {"canvas": card_canvas}
 
         # -- Right sidebar: command log, full height "menu bar" -------------
-        sidebar = tk.Frame(self.root, bg=COLOR_PANEL, width=160)
+        # Width lowered from 160 -> 130 to match the smaller minsize floor.
+        sidebar = tk.Frame(self.root, bg=COLOR_PANEL, width=130)
         sidebar.grid(row=1, column=1, sticky="nsew")
         sidebar.grid_propagate(False)
         sidebar.columnconfigure(0, weight=1)
@@ -257,7 +269,7 @@ class HomeSimulator:
 
         canvas.create_rectangle(2, 2, w - 2, h - 2, outline=edge, width=1)
 
-        bl = max(10, min(18, int(min(w, h) * 0.12)))  # bracket leg length, scaled
+        bl = max(8, min(18, int(min(w, h) * 0.12)))  # bracket leg length, scaled
         pts = [
             (4, 4 + bl, 4, 4, 4 + bl, 4),
             (w - 4 - bl, 4, w - 4, 4, w - 4, 4 + bl),
@@ -344,15 +356,19 @@ class HomeSimulator:
         canvas = self.widgets[device]["canvas"]
         w = canvas.winfo_width()
         h = canvas.winfo_height()
-        if w <= 1 or h <= 1:  # not yet mapped/sized by the geometry manager
-            w, h = int(canvas["width"]), int(canvas["height"])
-        w = max(w, MIN_CARD_W)
-        h = max(h, MIN_CARD_H)
+        if w <= 1 or h <= 1:
+            # Not yet mapped/sized by the geometry manager - use the
+            # configured starting size just for this first draw.
+            w, h = FALLBACK_CARD_W, FALLBACK_CARD_H
+        # No further floor here: once the canvas is mapped, we always draw
+        # at its *real* current size. Forcing a larger minimum than the
+        # actual canvas is what caused content to be drawn past the visible
+        # area (clipped/cut off) whenever the window was shrunk.
 
         canvas.delete("all")
         value = self.state[device]
         cx, cy = w / 2, h * 0.42
-        r = max(14, min(w, h) * 0.16)
+        r = max(10, min(w, h) * 0.16)
 
         if device in LIGHT_DEVICES:
             is_on = bool(value)
@@ -376,7 +392,7 @@ class HomeSimulator:
         else:
             return
 
-        name_size = max(8, min(10, int(w * 0.05)))
+        name_size = max(7, min(10, int(w * 0.05)))
         canvas.create_text(w / 2, h * 0.8, text=_tracked(DEVICE_LABELS[device]),
                             fill=COLOR_TEXT, font=(FONT_FAMILY, name_size, "bold"))
         canvas.create_text(w / 2, h * 0.92, text=_tracked(status_text),
