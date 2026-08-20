@@ -172,6 +172,7 @@ Rules:
   "lock the door" -> {{"action": "lock", "target": "front_door_lock", "value": null}}
   "unlock the front door" -> {{"action": "unlock", "target": "front_door_lock", "value": null}}
 - Interpret vague/ambiguous phrasing sensibly, e.g. "it's getting dark" -> turn_on a light; "I'm freezing" -> increase_temp.
+- Only include actions for devices the command actually refers to. A command about the thermostat (e.g. "set the thermostat to 22", "thermostat") must produce ONLY a thermostat action - never bundle in lights, the TV, or the door unless those are ALSO separately, explicitly named in the same command. The same isolation applies to the TV, the door, and any single named light/room.
 - The GUI card for "tv" is labeled TV. A command that ONLY refers to the TV (e.g. "turn on the tv", "turn off the tv", "turn on the television") must produce ONLY a "tv" action - never bundle in lights, the thermostat, or the door unless those are ALSO separately, explicitly named in the same command.
 - If the command says "the lights" or "all the lights" with no specific room named, include an action for EVERY light target: living_room_light, kitchen_light, AND bedroom_light. Do not silently pick just one.
 - If the command mentions no valid device/action, return {{"actions": [], "response_text": "Sorry, I didn't catch that. Try again."}}
@@ -234,6 +235,71 @@ def _build_actions(raw_actions: list) -> tuple[list, list]:
         seen.add(dedup_key)
         valid.append(device_action)
     return valid, warnings
+
+
+# ---------------------------------------------------------------------------
+# General "named devices only" isolation backstop
+# ---------------------------------------------------------------------------
+# Same root cause as the TV isolation bug below, but broader: any command
+# that only names ONE device category (e.g. "change the thermostat to 48
+# degrees", or a bare "thermostat") reliably came back from Qwen with all
+# three lights turned on too - even after being told in the prompt not to.
+# The previous per-category filters (_enforce_tv_isolation,
+# _enforce_room_light_isolation) only caught this for TV-only commands and
+# single-room light commands; a thermostat-only command slipped through
+# _enforce_room_light_isolation entirely, because that filter only
+# recognizes ROOM keywords - when it sees none, it assumes that's the
+# legitimate "turn off the lights" (no room named -> all lights) case,
+# without checking whether the command was ever about lights at all.
+#
+# Fix: figure out which device CATEGORIES the command actually names, and
+# drop any action whose category wasn't named - as long as at least one
+# category was named at all. This subsumes what TV isolation was doing, but
+# TV isolation is left in place below (harmless, effectively a no-op once
+# this runs first) since it's already tested and documented. Room-level
+# light sub-targeting (which specific room) is still handled separately,
+# afterward, by _enforce_room_light_isolation.
+# ---------------------------------------------------------------------------
+_CATEGORY_KEYWORDS = {
+    "thermostat": ["thermostat", "temperature", "degree", "degrees",
+                    "hot", "cold", "freezing", "warm", "cool"],
+    "tv": ["tv", "television"],
+    "door": ["door", "lock", "unlock"],
+    "light": ["light", "lights", "living room", "living", "kitchen",
+               "bedroom", "bed room", "dark"],
+}
+_TARGET_CATEGORY = {
+    "thermostat": "thermostat",
+    "tv": "tv",
+    "front_door_lock": "door",
+    "living_room_light": "light",
+    "kitchen_light": "light",
+    "bedroom_light": "light",
+}
+
+
+def _mentioned_categories(transcribed_text: str) -> set:
+    text = transcribed_text.lower()
+    return {
+        category for category, keywords in _CATEGORY_KEYWORDS.items()
+        if any(kw in text for kw in keywords)
+    }
+
+
+def _enforce_named_device_isolation(transcribed_text: str, actions: list) -> list:
+    mentioned = _mentioned_categories(transcribed_text)
+    if not mentioned:
+        # Shouldn't normally hit - parse_command already abstains earlier
+        # (see _mentions_any_device) when nothing recognizable is named.
+        return actions
+    filtered = [a for a in actions if _TARGET_CATEGORY.get(a.target) in mentioned]
+    if len(filtered) != len(actions):
+        dropped = [a.model_dump() for a in actions if _TARGET_CATEGORY.get(a.target) not in mentioned]
+        logger.warning(
+            "Category isolation: command %r named categories %s - dropped unrelated actions %s",
+            transcribed_text, mentioned, dropped,
+        )
+    return filtered
 
 
 # ---------------------------------------------------------------------------
@@ -387,6 +453,7 @@ def _describe_actions(actions: list) -> str:
 # skip calling the model entirely - there is nothing here for it to act on,
 # so there's no reason to give it the chance to invent something.
 NO_ACTION_MESSAGE = "I'm sorry but you didn't set an action for that."
+THERMOSTAT_QUERY_MESSAGE = "The current thermostat temperature is {temperature:g} degrees."
 
 _ALL_DEVICE_KEYWORDS = _OTHER_DEVICE_KEYWORDS + ["tv", "television", "dark"]
 
@@ -434,6 +501,11 @@ def _is_greeting(transcribed_text: str) -> bool:
 def _mentions_any_device(transcribed_text: str) -> bool:
     text = transcribed_text.lower()
     return any(kw in text for kw in _ALL_DEVICE_KEYWORDS)
+
+
+def _is_thermostat_query(transcribed_text: str) -> bool:
+    text = transcribed_text.strip().lower().rstrip(".!?,")
+    return text == "thermostat"
 
 
 def _should_abstain(transcribed_text: str) -> bool:
@@ -488,7 +560,7 @@ def _should_abstain(transcribed_text: str) -> bool:
     return False
 
 
-def parse_command(transcribed_text: str) -> AssistantResponse:
+def parse_command(transcribed_text: str, thermostat_temperature: float = 20.0) -> AssistantResponse:
     """
     Send transcribed_text to the local Qwen model via Ollama and return a
     validated AssistantResponse. Raises ValueError on unrecoverable parse
@@ -512,6 +584,16 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
             "Greeting detected - responding without calling Qwen: %r", transcribed_text,
         )
         return AssistantResponse(actions=[], response_text=GREETING_MESSAGE)
+
+    if _is_thermostat_query(transcribed_text):
+        logger.info(
+            "Thermostat query detected - reporting current temperature: %s",
+            thermostat_temperature,
+        )
+        return AssistantResponse(
+            actions=[],
+            response_text=THERMOSTAT_QUERY_MESSAGE.format(temperature=thermostat_temperature),
+        )
 
     if not _mentions_any_device(transcribed_text):
         logger.warning(
@@ -543,6 +625,7 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
         raw_actions = []
 
     actions, warnings = _build_actions(raw_actions)
+    actions = _enforce_named_device_isolation(transcribed_text, actions)
     actions = _enforce_tv_isolation(transcribed_text, actions)
     actions = _enforce_room_light_isolation(transcribed_text, actions)
 
@@ -592,6 +675,9 @@ if __name__ == "__main__":
         "Hi",  # regression check: same as above, short form
         "Hey Toto",  # regression check: greeting + short trailing address - still treated as a greeting
         "Hi, turn on the kitchen light",  # regression check: greeting-prefixed REAL command - must NOT short-circuit, kitchen light should still turn on
+        "Change the thermostat to 48 degrees",  # regression check: rejected temp - no lights should turn on
+        "Set the thermostat to 76 degrees",  # regression check: same, higher out-of-range value
+        "Thermostat",  # regression check: bare device mention - no lights should turn on
     ]
     for cmd in test_commands:
         print("\n>>>", cmd)

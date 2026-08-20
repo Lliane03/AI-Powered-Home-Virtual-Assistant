@@ -69,7 +69,10 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: t
             transcribed = pipeline.listen()
             simulator.root.after(0, simulator.set_status, f'Heard: "{transcribed}"')
 
-            result = parse_command(transcribed)
+            result = parse_command(
+                transcribed,
+                thermostat_temperature=simulator.state["thermostat"],
+            )
             elapsed = time.time() - start
             logger.info("End-to-end latency: %.2fs", elapsed)
 

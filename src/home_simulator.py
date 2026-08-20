@@ -34,7 +34,7 @@ import math
 import tkinter as tk
 from tkinter import font as tkfont
 
-from ai_engine import DeviceAction
+from ai_engine import DeviceAction, THERMOSTAT_MAX_C, THERMOSTAT_MIN_C
 
 logger = logging.getLogger("assistant")
 
@@ -504,9 +504,15 @@ class HomeSimulator:
         elif act == "set_temperature" and action.value is not None:
             self.state[target] = action.value
         elif act == "increase_temp" and action.value is not None:
-            self.state[target] = self.state.get(target, 20) + action.value
+            self.state[target] = min(
+                self.state.get(target, 20) + action.value,
+                THERMOSTAT_MAX_C,
+            )
         elif act == "decrease_temp" and action.value is not None:
-            self.state[target] = self.state.get(target, 20) - action.value
+            self.state[target] = max(
+                self.state.get(target, 20) - action.value,
+                THERMOSTAT_MIN_C,
+            )
         else:
             logger.warning("Unhandled action/value combo: %s", action)
             return
