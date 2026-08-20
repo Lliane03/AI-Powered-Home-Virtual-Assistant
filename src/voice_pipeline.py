@@ -12,6 +12,7 @@ whichever recognizer function you configure below - see RECOGNIZE_FN.
 """
 
 import logging
+import threading
 
 import pyttsx3
 import speech_recognition as sr
@@ -23,6 +24,17 @@ RECOGNIZER_BACKEND = "google"  # "google" | "sphinx"
 
 
 class VoicePipeline:
+    # Class-level (shared across every VoicePipeline instance and thread) -
+    # pyttsx3's Windows SAPI5 backend is not safe to run from two threads at
+    # once, even with separate engine instances. Observed 2026-08-20: the
+    # voice loop's background thread was still mid-speak() when the Pause
+    # button fired a second speak() call on its own thread; the second
+    # engine.runAndWait() crashed with "RuntimeError: run loop already
+    # started" and the Pause announcement was silently lost. This lock
+    # forces every speak() call in the whole app to run one at a time -
+    # a second caller just waits its turn instead of colliding.
+    _speak_lock = threading.Lock()
+
     def __init__(self):
         self.recognizer = sr.Recognizer()
         self.microphone = sr.Microphone()
@@ -57,13 +69,16 @@ class VoicePipeline:
         Re-initializes the TTS engine on every call - pyttsx3's SAPI5 backend
         on Windows unreliably stops producing audio after the first
         runAndWait() if the engine instance is reused across multiple calls.
+        Serialized via _speak_lock so concurrent callers (voice loop thread
+        vs. Pause/Resume button thread) queue instead of crashing each other.
         """
-        logger.info("Speaking: %s", text)
-        engine = pyttsx3.init()
-        engine.setProperty("rate", 175)
-        engine.say(text)
-        engine.runAndWait()
-        engine.stop()
+        with self._speak_lock:
+            logger.info("Speaking: %s", text)
+            engine = pyttsx3.init()
+            engine.setProperty("rate", 175)
+            engine.say(text)
+            engine.runAndWait()
+            engine.stop()
 
 
 if __name__ == "__main__":
