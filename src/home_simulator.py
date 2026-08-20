@@ -58,7 +58,7 @@ DEVICE_LABELS = {
     "bedroom_light": "BEDROOM",
     "thermostat": "CLIMATE",
     "front_door_lock": "FRONT DOOR",
-    "tv": "ENTERTAINMENT",
+    "tv": "TV",
 }
 
 DEVICE_ORDER = list(DEVICE_LABELS.keys())
