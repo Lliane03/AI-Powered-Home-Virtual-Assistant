@@ -165,6 +165,8 @@ Rules:
   "lock the door" -> {{"action": "lock", "target": "front_door_lock", "value": null}}
   "unlock the front door" -> {{"action": "unlock", "target": "front_door_lock", "value": null}}
 - Interpret vague/ambiguous phrasing sensibly, e.g. "it's getting dark" -> turn_on a light; "I'm freezing" -> increase_temp.
+- The GUI card for "tv" is labeled ENTERTAINMENT, so the user may say "entertainment", "entertainment system", "entertainment center", "television", or "TV" - all of these mean target "tv". There is only ONE entertainment device in this system, not one per room - never invent targets like "living_room_tv" or "bedroom_audio", they do not exist. If a command only refers to "the entertainment" with no other device named, emit ONLY a "tv" action - do not also turn lights on/off.
+- If the command says "the lights" or "all the lights" with no specific room named, include an action for EVERY light target: living_room_light, kitchen_light, AND bedroom_light. Do not silently pick just one.
 - If the command mentions no valid device/action, return {{"actions": [], "response_text": "Sorry, I didn't catch a command I can act on."}}
 """
 
@@ -251,8 +253,13 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
 
     response_text = data.get("response_text") or ""
     if warnings:
-        response_text = (response_text + " " if response_text else "") + " ".join(warnings)
-    if not actions and not response_text:
+        # An out-of-range value means the model's own response_text is
+        # describing something that did NOT actually happen (e.g. "The
+        # thermostat has been set to 36 degrees." when 36 was rejected).
+        # Replace it entirely with the warning rather than appending, so
+        # the user never hears a false success claim before the correction.
+        response_text = " ".join(warnings)
+    elif not actions and not response_text:
         response_text = "Sorry, I didn't catch a command I can act on."
 
     response = AssistantResponse(actions=actions, response_text=response_text)
@@ -272,6 +279,8 @@ if __name__ == "__main__":
         "Turn off the thermostat",  # regression check: should be rejected, not silently applied
         "Set the thermostat to 50 degrees",  # regression check: out-of-range -> warning, no crash
         "Turn on the tv and set the thermostat to 100",  # regression check: TV action should survive even though the temp is rejected
+        "Turn on the entertainment",  # regression check: should map to tv, not living_room_light
+        "Turn off the lights",  # regression check: should include all 3 lights, not just one
     ]
     for cmd in test_commands:
         print("\n>>>", cmd)
