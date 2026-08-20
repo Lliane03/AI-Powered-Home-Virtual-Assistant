@@ -18,6 +18,13 @@ logger = logging.getLogger("assistant")
 
 MODEL_NAME = "qwen2.5:1.5b"
 
+# Single, consistent apology used everywhere in the app - previously
+# ai_engine.py used "Sorry, I didn't catch a command I can act on." while
+# main.py used a differently-worded "Sorry, I didn't catch that. Try
+# again." for STT failures. Unified into one phrase so the user hears the
+# same thing regardless of which layer couldn't understand them.
+FALLBACK_MESSAGE = "Sorry, I didn't catch that. Try again."
+
 # Thermostat's supported target-temperature range, in Celsius. Keep in sync
 # with home_simulator.py's dial-drawing clamp (_draw_thermostat).
 THERMOSTAT_MIN_C = 7.0
@@ -165,9 +172,9 @@ Rules:
   "lock the door" -> {{"action": "lock", "target": "front_door_lock", "value": null}}
   "unlock the front door" -> {{"action": "unlock", "target": "front_door_lock", "value": null}}
 - Interpret vague/ambiguous phrasing sensibly, e.g. "it's getting dark" -> turn_on a light; "I'm freezing" -> increase_temp.
-- The GUI card for "tv" is labeled ENTERTAINMENT, so the user may say "entertainment", "entertainment system", "entertainment center", "television", or "TV" - all of these mean target "tv". There is only ONE entertainment device in this system, not one per room - never invent targets like "living_room_tv" or "bedroom_audio", they do not exist. If a command only refers to "the entertainment" with no other device named, emit ONLY a "tv" action - do not also turn lights on/off.
+- The GUI card for "tv" is labeled TV. A command that ONLY refers to the TV (e.g. "turn on the tv", "turn off the tv", "turn on the television") must produce ONLY a "tv" action - never bundle in lights, the thermostat, or the door unless those are ALSO separately, explicitly named in the same command.
 - If the command says "the lights" or "all the lights" with no specific room named, include an action for EVERY light target: living_room_light, kitchen_light, AND bedroom_light. Do not silently pick just one.
-- If the command mentions no valid device/action, return {{"actions": [], "response_text": "Sorry, I didn't catch a command I can act on."}}
+- If the command mentions no valid device/action, return {{"actions": [], "response_text": "Sorry, I didn't catch that. Try again."}}
 """
 
 
@@ -197,9 +204,10 @@ def _build_actions(raw_actions: list) -> tuple[list, list]:
     """
     valid = []
     warnings = []
+    seen = set()
     for raw in raw_actions:
         try:
-            valid.append(DeviceAction.model_validate(raw))
+            device_action = DeviceAction.model_validate(raw)
         except ValidationError as exc:
             action = raw.get("action") if isinstance(raw, dict) else None
             target = raw.get("target") if isinstance(raw, dict) else None
@@ -212,7 +220,117 @@ def _build_actions(raw_actions: list) -> tuple[list, list]:
                 )
             else:
                 logger.warning("Dropped invalid action %s: %s", raw, exc)
+            continue
+
+        # Qwen occasionally repeats the exact same action twice in one
+        # response (observed 2026-08-20: "turn on bedroom" ->
+        # bedroom_light turn_on listed twice). Harmless in effect since
+        # applying it twice is idempotent, but it inflates the command log
+        # and metrics with a phantom duplicate action - drop repeats.
+        dedup_key = (device_action.action, device_action.target, device_action.value)
+        if dedup_key in seen:
+            logger.warning("Dropped duplicate action %s", device_action.model_dump())
+            continue
+        seen.add(dedup_key)
+        valid.append(device_action)
     return valid, warnings
+
+
+# ---------------------------------------------------------------------------
+# TV isolation backstop
+# ---------------------------------------------------------------------------
+# Prompting alone was NOT reliable enough on qwen2.5:1.5b: even after adding
+# an explicit "TV commands must be isolated" instruction to SYSTEM_PROMPT,
+# testing on 2026-08-20 showed the model still bundled in all 3 lights +
+# thermostat + door lock on TV-only phrases ("entertainment", "entertain",
+# "turn off entertainment") in 4 out of 4 tries. Since this needs to be
+# solid for a live demo, back the prompt with a deterministic code-level
+# filter: if the transcribed command doesn't mention any other device by
+# name, strip out any non-tv actions the model added on its own, no matter
+# what it decided to include.
+_OTHER_DEVICE_KEYWORDS = [
+    "light", "lights",
+    "living room", "kitchen", "bedroom",
+    "thermostat", "temperature", "degree", "degrees",
+    "hot", "cold", "freezing", "warm", "cool",
+    "door", "lock", "unlock",
+]
+
+
+def _is_tv_only_command(transcribed_text: str) -> bool:
+    """True if the command mentions the TV and names no other device -
+    e.g. 'turn on the tv' or 'turn off tv', but NOT 'turn on the tv and
+    kitchen light' (that legitimately names two devices and should keep
+    both actions)."""
+    text = transcribed_text.lower()
+    mentions_tv = "tv" in text or "television" in text
+    mentions_other = any(kw in text for kw in _OTHER_DEVICE_KEYWORDS)
+    return mentions_tv and not mentions_other
+
+
+def _enforce_tv_isolation(transcribed_text: str, actions: list) -> list:
+    if not _is_tv_only_command(transcribed_text):
+        return actions
+    filtered = [a for a in actions if a.target == "tv"]
+    if len(filtered) != len(actions):
+        dropped = [a.model_dump() for a in actions if a.target != "tv"]
+        logger.warning(
+            "TV isolation: command %r named only the TV - dropped bundled actions %s",
+            transcribed_text, dropped,
+        )
+    return filtered
+
+
+def _should_abstain(transcribed_text: str) -> bool:
+    """
+    True if the transcribed text is either the deprecated "entertainment"
+    wording or looks too incomplete/dangling to safely act on - in both
+    cases we skip calling Qwen entirely and ask the user to repeat the
+    command, rather than let the model guess.
+
+    This exists because prompting alone was NOT reliable here: testing on
+    2026-08-20 showed short/truncated STT results like "turn on the",
+    "set", and "the thermostat into" consistently caused Qwen to invent a
+    "turn everything on" response (all 3 lights + tv + thermostat + door)
+    instead of admitting the command was unclear. Skipping the model call
+    for these cases is also faster (~10s saved per abstained command,
+    since Qwen's inference is the dominant cost - see latency numbers in
+    resource_log.csv), which matters for keeping a live demo responsive.
+    """
+    text = transcribed_text.strip().lower().rstrip(".!?,")
+    if not text:
+        return True
+
+    # "entertainment" is a deprecated/unsupported word now that the GUI
+    # card and all prompt wording refer only to "tv" - never attempt to
+    # interpret it, and never let it fall through to the model (observed:
+    # Qwen consistently mapped it to turning all lights + door + thermostat
+    # on/off, none of which the user asked for).
+    if "entertain" in text:
+        return True
+
+    # A grammatically complete command essentially never ends on a bare
+    # article/preposition/conjunction - that pattern reliably indicates the
+    # STT cut the user off mid-sentence (observed: "turn on the", "the
+    # thermostat into").
+    dangling_trailing_words = {
+        "the", "a", "an", "on", "off", "to", "into", "at", "in", "and", "is", "was",
+    }
+    last_word = text.split()[-1] if text.split() else ""
+    if last_word in dangling_trailing_words:
+        return True
+
+    # A bare verb with no object at all (observed: "set" alone triggered
+    # the same "turn everything on" hallucination as the trailing-word case
+    # above, even though it doesn't end in one of those words).
+    bare_verb_only = {
+        "set", "turn", "turn on", "turn off", "lock", "unlock",
+        "change", "increase", "decrease",
+    }
+    if text in bare_verb_only:
+        return True
+
+    return False
 
 
 def parse_command(transcribed_text: str) -> AssistantResponse:
@@ -226,6 +344,13 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
     the command.
     """
     logger.info("Sending to Qwen: %s", transcribed_text)
+
+    if _should_abstain(transcribed_text):
+        logger.warning(
+            "Abstaining without calling Qwen - command looks incomplete or "
+            "uses deprecated wording: %r", transcribed_text,
+        )
+        return AssistantResponse(actions=[], response_text=FALLBACK_MESSAGE)
 
     result = ollama.chat(
         model=MODEL_NAME,
@@ -250,6 +375,7 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
         raw_actions = []
 
     actions, warnings = _build_actions(raw_actions)
+    actions = _enforce_tv_isolation(transcribed_text, actions)
 
     response_text = data.get("response_text") or ""
     if warnings:
@@ -259,8 +385,19 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
         # Replace it entirely with the warning rather than appending, so
         # the user never hears a false success claim before the correction.
         response_text = " ".join(warnings)
+    elif _is_tv_only_command(transcribed_text):
+        # response_text is free-form model output and may describe the
+        # bundled actions we just stripped in _enforce_tv_isolation (e.g.
+        # "The entertainment and lights have been turned off." after the
+        # lights were filtered out) - generate a clean, accurate
+        # confirmation instead of trusting the model's original wording.
+        if actions:
+            verb = "on" if actions[0].action == "turn_on" else "off"
+            response_text = f"The TV is now {verb}."
+        else:
+            response_text = FALLBACK_MESSAGE
     elif not actions and not response_text:
-        response_text = "Sorry, I didn't catch a command I can act on."
+        response_text = FALLBACK_MESSAGE
 
     response = AssistantResponse(actions=actions, response_text=response_text)
     logger.info("Parsed actions: %s", response.model_dump())
@@ -279,8 +416,13 @@ if __name__ == "__main__":
         "Turn off the thermostat",  # regression check: should be rejected, not silently applied
         "Set the thermostat to 50 degrees",  # regression check: out-of-range -> warning, no crash
         "Turn on the tv and set the thermostat to 100",  # regression check: TV action should survive even though the temp is rejected
-        "Turn on the entertainment",  # regression check: should map to tv, not living_room_light
+        "Turn on the tv",  # regression check: single-device TV command works standalone
+        "Turn off the tv",  # regression check: bundled lights/thermostat/lock (if any) get stripped, clean TV-only response
+        "Turn on the tv and kitchen light",  # regression check: naming a second device should NOT trigger isolation - both actions must survive
         "Turn off the lights",  # regression check: should include all 3 lights, not just one
+        "Turn on the",  # regression check: incomplete/dangling - should abstain, no Qwen call, no actions
+        "Turn on entertainment",  # regression check: deprecated word - should abstain entirely, zero actions
+        "Set",  # regression check: bare verb, no object - should abstain
     ]
     for cmd in test_commands:
         print("\n>>>", cmd)
