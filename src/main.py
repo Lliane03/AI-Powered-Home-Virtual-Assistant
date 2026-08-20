@@ -16,7 +16,7 @@ import time
 import tkinter as tk
 from datetime import datetime
 
-from ai_engine import parse_command
+from ai_engine import parse_command, FALLBACK_MESSAGE
 from home_simulator import HomeSimulator
 from monitor_resources import ResourceTracker
 from voice_pipeline import VoicePipeline
@@ -47,6 +47,7 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: t
     touching the microphone until it's cleared again.
     """
     simulator.root.after(0, simulator.set_status, "Ready. Say a command...")
+    pipeline.speak("Ready. Say a command.")
     tracker = ResourceTracker()  # self-samples THIS process, no PID needed
 
     while True:
@@ -92,7 +93,7 @@ def voice_loop(simulator: HomeSimulator, pipeline: VoicePipeline, pause_event: t
             # Broad catch is intentional here: STT timeouts, unrecognized speech,
             # and malformed model output should never crash the assistant loop.
             logger.error("Voice loop error: %s", exc)
-            fallback_msg = "Sorry, I didn't catch that. Try again."
+            fallback_msg = FALLBACK_MESSAGE
             simulator.root.after(0, simulator.set_status, fallback_msg)
             try:
                 # Previously this only updated the status text - the user
@@ -125,9 +126,21 @@ def main():
         if is_paused:
             pause_event.set()
             logger.info("Voice loop paused by user.")
+            announcement = "Paused. Click Resume to continue."
         else:
             pause_event.clear()
             logger.info("Voice loop resumed by user.")
+            announcement = "System ready. Awaiting voice command."
+        # This callback fires synchronously on the Tkinter main thread (the
+        # button click handler in home_simulator.py calls it directly), but
+        # pyttsx3's speak() blocks until playback finishes - running it
+        # inline here would freeze the whole GUI for the announcement's
+        # duration. Speak on a short-lived background thread instead so the
+        # window stays responsive. The wording matches exactly what
+        # home_simulator.py already puts in the status bar for these two
+        # events (see HomeSimulator._handle_pause_toggle) - kept in sync
+        # here rather than duplicated as a third copy.
+        threading.Thread(target=pipeline.speak, args=(announcement,), daemon=True).start()
 
     simulator = HomeSimulator(root, on_toggle_pause=handle_pause_toggle)
 
