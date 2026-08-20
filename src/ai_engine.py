@@ -250,7 +250,7 @@ def _build_actions(raw_actions: list) -> tuple[list, list]:
 # what it decided to include.
 _OTHER_DEVICE_KEYWORDS = [
     "light", "lights",
-    "living room", "kitchen", "bedroom",
+    "living room", "living", "kitchen", "bedroom",
     "thermostat", "temperature", "degree", "degrees",
     "hot", "cold", "freezing", "warm", "cool",
     "door", "lock", "unlock",
@@ -279,6 +279,161 @@ def _enforce_tv_isolation(transcribed_text: str, actions: list) -> list:
             transcribed_text, dropped,
         )
     return filtered
+
+
+# ---------------------------------------------------------------------------
+# Per-room light isolation backstop
+# ---------------------------------------------------------------------------
+# Same root cause as the TV isolation bug above: naming ONE specific room
+# ("kitchen", "living room"/"living") reliably made Qwen bundle in the
+# other two rooms' lights too (observed 2026-08-20: "on kitchen light" ->
+# all 3 lights; "turn on living light" -> all 3 lights, even while the
+# door and TV were also correctly isolated in the same command). Fix the
+# same way: deterministically strip any light action for a room that
+# wasn't actually named, rather than trust the model to self-restrict.
+_ROOM_LIGHT_KEYWORDS = {
+    "living_room_light": ["living room", "living"],
+    "kitchen_light": ["kitchen"],
+    "bedroom_light": ["bedroom", "bed room"],
+}
+_ROOM_LABELS = {
+    "living_room_light": "living room",
+    "kitchen_light": "kitchen",
+    "bedroom_light": "bedroom",
+}
+
+
+def _mentioned_rooms(transcribed_text: str) -> set:
+    text = transcribed_text.lower()
+    return {
+        target for target, keywords in _ROOM_LIGHT_KEYWORDS.items()
+        if any(kw in text for kw in keywords)
+    }
+
+
+def _enforce_room_light_isolation(transcribed_text: str, actions: list) -> list:
+    text = transcribed_text.lower()
+    if "all" in text:
+        # "turn on all the lights" - let every light through as intended.
+        return actions
+    mentioned = _mentioned_rooms(transcribed_text)
+    if not mentioned:
+        # No specific room named at all (e.g. "turn off the lights") - the
+        # SYSTEM_PROMPT rule handles this case by including every light on
+        # purpose, so don't interfere here.
+        return actions
+    if len(mentioned) == len(_ROOM_LIGHT_KEYWORDS):
+        # User genuinely named all three rooms - keep everything.
+        return actions
+
+    light_targets = set(_ROOM_LIGHT_KEYWORDS.keys())
+    filtered = [a for a in actions if not (a.target in light_targets and a.target not in mentioned)]
+    if len(filtered) != len(actions):
+        dropped = [a.model_dump() for a in actions if a.target in light_targets and a.target not in mentioned]
+        logger.warning(
+            "Room isolation: command %r named rooms %s - dropped unrelated light actions %s",
+            transcribed_text, mentioned, dropped,
+        )
+    return filtered
+
+
+# ---------------------------------------------------------------------------
+# Deterministic confirmation text
+# ---------------------------------------------------------------------------
+# All session, the recurring failure pattern was NOT the actions list being
+# wrong (pydantic + the isolation filters above catch that) - it was
+# response_text (Qwen's own free-form sentence) describing something
+# different from what was actually applied, e.g. claiming "the lights and
+# TV have been turned off" when a light was filtered out, or "set to 36
+# degrees" when that value was rejected. Rather than keep patching
+# individual mismatches, generate the spoken confirmation directly from the
+# final, validated action list whenever there IS at least one real action -
+# it can never lie about what happened because it's built from what
+# actually happened.
+def _describe_action(a: "DeviceAction") -> str:
+    if a.target in _ROOM_LABELS:
+        state = "on" if a.action == "turn_on" else "off"
+        return f"The {_ROOM_LABELS[a.target]} light is {state}"
+    if a.target == "tv":
+        state = "on" if a.action == "turn_on" else "off"
+        return f"The TV is {state}"
+    if a.target == "front_door_lock":
+        state = "locked" if a.action == "lock" else "unlocked"
+        return f"The front door is {state}"
+    if a.target == "thermostat":
+        if a.action == "set_temperature":
+            return f"The thermostat is set to {a.value:g} degrees"
+        if a.action == "increase_temp":
+            return f"The thermostat has been increased by {a.value:g} degrees"
+        if a.action == "decrease_temp":
+            return f"The thermostat has been decreased by {a.value:g} degrees"
+    return f"{a.target.replace('_', ' ')} {a.action.replace('_', ' ')}"  # fallback, shouldn't normally hit
+
+
+def _describe_actions(actions: list) -> str:
+    parts = [_describe_action(a) for a in actions]
+    if len(parts) == 1:
+        return parts[0] + "."
+    return ", ".join(parts[:-1]) + f", and {parts[-1]}."
+
+
+# ---------------------------------------------------------------------------
+# "Not an actionable command" detection
+# ---------------------------------------------------------------------------
+# Observed 2026-08-20: saying "yes" (a non-command with zero device content)
+# still got Qwen to fabricate a full set of actions ("Okay, the lights and
+# the thermostat are on...") and apply them for real. If the transcribed
+# text doesn't reference ANY recognized device/room/action concept at all,
+# skip calling the model entirely - there is nothing here for it to act on,
+# so there's no reason to give it the chance to invent something.
+NO_ACTION_MESSAGE = "I'm sorry but you didn't set an action for that."
+
+_ALL_DEVICE_KEYWORDS = _OTHER_DEVICE_KEYWORDS + ["tv", "television", "dark"]
+
+# ---------------------------------------------------------------------------
+# Greeting exception
+# ---------------------------------------------------------------------------
+# The no-device-keyword abstain path below (_mentions_any_device) would
+# otherwise catch "hello"/"hi" too, since a greeting obviously doesn't name
+# any device. Before this exception existed, that meant a friendly "hello"
+# got the same "I'm sorry but you didn't set an action for that." reply as
+# a genuinely confused command like "yes" - technically correct (there's no
+# action in either), but it made the assistant feel less natural for the
+# one input type a user is most likely to casually test with. This is
+# carved out on purpose: greetings keep the old friendly canned reply,
+# every other non-actionable input still falls through to NO_ACTION_MESSAGE.
+GREETING_MESSAGE = "Hello! How can I help you today?"
+
+_GREETING_WORDS = {
+    "hi", "hello", "hey", "hiya", "yo", "greetings",
+    "good morning", "good afternoon", "good evening",
+}
+
+
+def _is_greeting(transcribed_text: str) -> bool:
+    """
+    True only for a bare greeting (optionally with light trailing address
+    like "hey Toto" or punctuation), not for a greeting that also opens
+    an actual command (e.g. "hi, turn on the kitchen light" should still
+    be treated as a real command, not short-circuited here).
+    """
+    text = transcribed_text.strip().lower().rstrip(".!?,")
+    if not text:
+        return False
+    if text in _GREETING_WORDS:
+        return True
+    # Allow a short trailing address after the greeting word itself, e.g.
+    # "hey Toto" / "hello there" - but only if nothing device-related
+    # follows, so a greeting-prefixed real command still falls through.
+    words = text.split()
+    if words and words[0] in _GREETING_WORDS and not _mentions_any_device(text):
+        return len(words) <= 3
+    return False
+
+
+def _mentions_any_device(transcribed_text: str) -> bool:
+    text = transcribed_text.lower()
+    return any(kw in text for kw in _ALL_DEVICE_KEYWORDS)
 
 
 def _should_abstain(transcribed_text: str) -> bool:
@@ -352,6 +507,19 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
         )
         return AssistantResponse(actions=[], response_text=FALLBACK_MESSAGE)
 
+    if _is_greeting(transcribed_text):
+        logger.info(
+            "Greeting detected - responding without calling Qwen: %r", transcribed_text,
+        )
+        return AssistantResponse(actions=[], response_text=GREETING_MESSAGE)
+
+    if not _mentions_any_device(transcribed_text):
+        logger.warning(
+            "Abstaining without calling Qwen - no recognizable device/room/"
+            "action keyword in %r, nothing to act on", transcribed_text,
+        )
+        return AssistantResponse(actions=[], response_text=NO_ACTION_MESSAGE)
+
     result = ollama.chat(
         model=MODEL_NAME,
         messages=[
@@ -376,28 +544,21 @@ def parse_command(transcribed_text: str) -> AssistantResponse:
 
     actions, warnings = _build_actions(raw_actions)
     actions = _enforce_tv_isolation(transcribed_text, actions)
+    actions = _enforce_room_light_isolation(transcribed_text, actions)
 
-    response_text = data.get("response_text") or ""
     if warnings:
         # An out-of-range value means the model's own response_text is
         # describing something that did NOT actually happen (e.g. "The
         # thermostat has been set to 36 degrees." when 36 was rejected).
-        # Replace it entirely with the warning rather than appending, so
-        # the user never hears a false success claim before the correction.
         response_text = " ".join(warnings)
-    elif _is_tv_only_command(transcribed_text):
-        # response_text is free-form model output and may describe the
-        # bundled actions we just stripped in _enforce_tv_isolation (e.g.
-        # "The entertainment and lights have been turned off." after the
-        # lights were filtered out) - generate a clean, accurate
-        # confirmation instead of trusting the model's original wording.
-        if actions:
-            verb = "on" if actions[0].action == "turn_on" else "off"
-            response_text = f"The TV is now {verb}."
-        else:
-            response_text = FALLBACK_MESSAGE
-    elif not actions and not response_text:
-        response_text = FALLBACK_MESSAGE
+    elif actions:
+        # Built directly from the final, validated action list - see
+        # "Deterministic confirmation text" above. Ignores Qwen's own
+        # response_text entirely for real commands, since that sentence
+        # has repeatedly described actions that were filtered out above.
+        response_text = _describe_actions(actions)
+    else:
+        response_text = data.get("response_text") or NO_ACTION_MESSAGE
 
     response = AssistantResponse(actions=actions, response_text=response_text)
     logger.info("Parsed actions: %s", response.model_dump())
@@ -423,6 +584,14 @@ if __name__ == "__main__":
         "Turn on the",  # regression check: incomplete/dangling - should abstain, no Qwen call, no actions
         "Turn on entertainment",  # regression check: deprecated word - should abstain entirely, zero actions
         "Set",  # regression check: bare verb, no object - should abstain
+        "Turn on kitchen light",  # regression check: only kitchen should change, not living room/bedroom
+        "Turn on living light",  # regression check: only living room should change, not kitchen/bedroom
+        "Turn on tv lock the front door turn on living light",  # regression check: TV+door+living room only, kitchen/bedroom must NOT change
+        "Yes",  # regression check: not an actionable command - must produce zero actions and NO_ACTION_MESSAGE, no Qwen call
+        "Hello",  # regression check: greeting exception - must get GREETING_MESSAGE, no Qwen call
+        "Hi",  # regression check: same as above, short form
+        "Hey Toto",  # regression check: greeting + short trailing address - still treated as a greeting
+        "Hi, turn on the kitchen light",  # regression check: greeting-prefixed REAL command - must NOT short-circuit, kitchen light should still turn on
     ]
     for cmd in test_commands:
         print("\n>>>", cmd)
